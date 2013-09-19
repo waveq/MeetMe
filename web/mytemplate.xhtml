@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+        <h:outputStylesheet library="css" name="default.css"/>
+        <title>Meet Me</title>
+    </h:head>
+
+    <h:body>
+
+
+        <div id="top">
+            <h:form>
+            <h:commandLink action="#{navigationBean.redirectToIndex}">    
+                <h:graphicImage library="images" name="logo.png" width="200" height="50"/>
+            </h:commandLink>
+            </h:form>
+        </div>
+        <div>
+            <div id="left">
+                <h:panelGroup id="loggedOut-leftMenu" rendered="#{not userBean.loggedIn}">
+
+                <ul>
+                    <li>Zaloguj sie</li>
+                </ul>
+                </h:panelGroup>
+                 <h:panelGroup id="loggedIn-leftMenu" rendered="#{userBean.loggedIn}">
+                <ul>
+                    <h:form>
+                    <li><h:commandLink action="#{navigationBean.redirectToAddPlace}" value="Dodaj miejsce" /></li>
+                    <li><h:commandLink action="#{navigationBean.redirectToShowPlaces}" value="Pokaż miejsca" /></li>
+                    <li><h:commandLink action="#{navigationBean.redirectToAddEvent}" value="Dodaj wydarzenie" /></li>
+                    <li><h:commandLink action="#{navigationBean.redirectToShowEvents}" value="Pokaż wydarzenia" /></li>
+                    <li><h:commandLink action="#{userBean.doLogout}" value="Wyloguj" /></li>
+                    </h:form>
+                </ul>
+                 </h:panelGroup>
+                </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+    </h:body>
+
+</html>

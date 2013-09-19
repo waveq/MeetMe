@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./mytemplate.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"     
+                xmlns:h="http://java.sun.com/jsf/html">
+    
+    <ui:define name="content">
+       <h:panelGroup id="loggedOut-content" rendered="#{not userBean.loggedIn}">
+        <h1>Zaloguj</h1>
+         <h:form id="login-form">
+           <h:outputText value="Login:"/>
+           <h:inputText value="#{userBean.user.login}" id="username"/>
+           <br/>
+           <h:outputText value="Hasło:"/>
+           <h:inputSecret value="#{userBean.user.haslo}" id="password"/>
+           <br/>
+           <h:commandButton id="button" value="Login" action="#{userBean.doLogin}" />
+           <br/>
+           <h:messages />
+        </h:form>
+        <h:form id="create-acc">
+        <h:commandLink action="#{navigationBean.redirectToCreateAcc}" value="Stwórz konto"/>
+        </h:form>
+             
+         </h:panelGroup>
+         <h:panelGroup id="loggedIn-Content" rendered="#{userBean.loggedIn}">
+             <h1>ZALOGOWANO</h1>
+             <h2>Witaj</h2>
+             <table>
+                 <tr><td>Imie:</td><td>#{userBean.user.imie}</td></tr>
+                 <tr><td>Nazwisko:</td><td>#{userBean.user.nazwisko}</td></tr>
+             </table>
+         </h:panelGroup>
+    </ui:define>
+</ui:composition>

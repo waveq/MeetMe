@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <!-- BEANS -->
+    <managed-bean>
+        <managed-bean-name>miejsceBean</managed-bean-name>
+        <managed-bean-class>com.waveq.meetme.controllers.MiejsceBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+     </managed-bean>
+     <managed-bean>
+        <managed-bean-name>eventBean</managed-bean-name>
+        <managed-bean-class>com.waveq.meetme.controllers.EventBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+     </managed-bean>
+     <managed-bean>
+        <managed-bean-name>userBean</managed-bean-name>
+        <managed-bean-class>com.waveq.meetme.controllers.UserBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>navigationBean</property-name>
+            <value>#{navigationBean}</value>
+        </managed-property>
+     </managed-bean>
+     <managed-bean>
+        <managed-bean-name>navigationBean</managed-bean-name>
+        <managed-bean-class>com.waveq.meetme.controllers.NavigationBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+     </managed-bean>
+     
+     <!-- CONVERTER -->
+    <converter>
+        <converter-id>miejsceConverter</converter-id>
+        <converter-class>com.waveq.meetme.config.MiejsceConverter</converter-class>
+    </converter>
+    
+    <!-- VALIDATOR -->
+     <validator>
+        <validator-id>loginValidator</validator-id>
+        <validator-class>com.waveq.meetme.config.LoginValidator</validator-class>
+    </validator>
+    
+    <!-- NAVIGATION RULES -->
+    <navigation-rule>
+	<from-view-id>*</from-view-id>
+	<navigation-case>
+                <from-action>#{navigationBean.redirectToIndex}</from-action>
+		<from-outcome>toindex</from-outcome>
+		<to-view-id>/index.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+        <navigation-case>
+                <from-action>#{userBean.doLogout}</from-action>
+		<from-outcome>logout-success</from-outcome>
+		<to-view-id>/index.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+	<from-view-id>/index.xhtml</from-view-id>
+	<navigation-case>
+                <from-action>#{userBean.doLogin}</from-action>
+		<from-outcome>login-success</from-outcome>
+		<to-view-id>/index.xhtml</to-view-id>
+	</navigation-case>
+        <navigation-case>
+                <from-action>#{userBean.doLogin}</from-action>
+		<from-outcome>login-fail</from-outcome>
+		<to-view-id>/index.xhtml</to-view-id>
+	</navigation-case>
+        <navigation-case>
+                <from-action>#{navigationBean.redirectToCreateAcc}</from-action>
+		<from-outcome>createacc</from-outcome>
+		<to-view-id>/createacc.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+        <navigation-case>
+                <from-action>#{navigationBean.redirectToShowPlaces}</from-action>
+		<from-outcome>showplaces</from-outcome>
+		<to-view-id>/secure/showplaces.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+        <navigation-case>
+                <from-action>#{navigationBean.redirectToAddPlace}</from-action>
+		<from-outcome>addplace</from-outcome>
+		<to-view-id>/secure/addplace.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+        <navigation-case>
+                <from-action>#{navigationBean.redirectToShowEvents}</from-action>
+		<from-outcome>showevents</from-outcome>
+		<to-view-id>/secure/showevents.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+        <navigation-case>     
+                <from-action>#{navigationBean.redirectToAddEvent}</from-action>
+		<from-outcome>addevent</from-outcome>
+		<to-view-id>/secure/addevent.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+     </navigation-rule> 
+    
+     <navigation-rule>
+         <from-view-id>/createacc.xhtml</from-view-id>
+         <navigation-case>
+             <from-action>#{userBean.dodaj}</from-action>
+             <from-outcome>toindex</from-outcome>
+             <to-view-id>/index.xhtml</to-view-id>
+         </navigation-case>
+     </navigation-rule>
+     
+    <navigation-rule>
+	<from-view-id>/secure/*</from-view-id>
+         <navigation-case>
+                <from-action>#{navigationBean.redirectToShowPlaces}</from-action>
+		<from-outcome>showplaces</from-outcome>
+		<to-view-id>/secure/showplaces.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+        <navigation-case>     
+                <from-action>#{navigationBean.redirectToAddPlace}</from-action>
+		<from-outcome>addplace</from-outcome>
+		<to-view-id>/secure/addplace.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+         <navigation-case>
+                <from-action>#{navigationBean.redirectToShowEvents}</from-action>
+		<from-outcome>showevents</from-outcome>
+		<to-view-id>/secure/showevents.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+        <navigation-case>     
+                <from-action>#{navigationBean.redirectToAddEvent}</from-action>
+		<from-outcome>addevent</from-outcome>
+		<to-view-id>/secure/addevent.xhtml</to-view-id>
+                <redirect />
+	</navigation-case>
+    </navigation-rule>
+
+  
+</faces-config>
