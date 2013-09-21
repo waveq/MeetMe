@@ -5,6 +5,7 @@
     <class>com.waveq.meetme.Miejsce</class>
     <class>com.waveq.meetme.entity.User</class>
     <class>com.waveq.meetme.entity.Event</class>
+    <class>com.waveq.meetme.entity.Zapis</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/javaee?zeroDateTimeBehavior=convertToNull"/>

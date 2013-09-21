@@ -3,13 +3,19 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../mytemplate.xhtml"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
     
     <ui:define name="content">
                <h1>Dodawanie miejsca</h1>
         <h:form>
             <table>
-                <tr><td>Nazwa</td><td><h:inputText id="nazwa" value="#{miejsceBean.miejsce.nazwa}" required="true"  /></td></tr>
+                <tr><td>Nazwa</td>
+                    <td>
+                        <h:inputText id="nazwa" value="#{miejsceBean.miejsce.nazwa}" required="true" >
+                        <f:validator id="validator"  validatorId="miejsceValidator" />
+                        </h:inputText>
+                    </td></tr>
                 <tr><td>Adres</td><td><h:inputText id="adres" value="#{miejsceBean.miejsce.adres}" required="true" /></td></tr>
                 <tr><td></td><td><h:commandButton action="#{miejsceBean.dodaj}" value="Dodaj" /></td></tr>
             </table>

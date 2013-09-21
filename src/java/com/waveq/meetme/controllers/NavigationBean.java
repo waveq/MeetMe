@@ -38,4 +38,8 @@ public class NavigationBean implements Serializable {
         return "toindex";
     }
      
+     public String redirectToSigns() {
+        return "tosigns";
+    }
+     
 }

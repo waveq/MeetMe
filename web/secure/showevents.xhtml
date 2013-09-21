@@ -10,10 +10,12 @@
         <h1>Lista miejsc</h1>
         
           <h:form>
-            <h:dataTable value="#{eventBean.lista}" var="event">
+              <h:dataTable value="#{eventBean.lista}" var="event">
                  <h:column>
                    <f:facet name="header">Nazwa</f:facet>
-                   <h:outputText value="#{event.nazwa}"/>
+                   <h:commandLink value="#{event.nazwa}" action="#{eventBean.zaladujZapisy}" actionListener="#{eventBean.eventListener}" >
+                           <f:param name="eventID" value="#{event.id}" />
+                   </h:commandLink>
                </h:column>
                 <h:column>
                     <f:facet name="header">Miejsce</f:facet>

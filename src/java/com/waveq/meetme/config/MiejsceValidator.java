@@ -10,28 +10,25 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import javax.persistence.EntityManager;
-import com.waveq.meetme.entity.User;
+import com.waveq.meetme.entity.Miejsce;
 import java.util.List;
 
 /**
  *
  * @author Szym
  */
-public class LoginValidator implements Validator {
+public class MiejsceValidator implements Validator {
 
     @Override
     public void validate(FacesContext ctx, UIComponent component, Object value){
         if(!(value instanceof String))
             throw new ValidatorException(new FacesMessage("Przekazana wartosc nie jest lancuchem znakow!"));
-        String login = ((String)value).toLowerCase();
-        if(login.contains(" "))
-            throw new ValidatorException(new FacesMessage("Login nie może zawierać spacji!"));
-        
+        String nazwa = (String)value;
         EntityManager em = DBManager.getManager().createEntityManager();
-        List<User> list = em.createNamedQuery("User.findByLogin").setParameter("login", login).getResultList();
+        List<Miejsce> list = em.createNamedQuery("Miejsce.findByNazwa").setParameter("nazwa", nazwa).getResultList();
         em.close();
         if(list.size()>0) 
-            throw new ValidatorException(new FacesMessage("Login jest już zajęty."));
+            throw new ValidatorException(new FacesMessage("Nazwa miejsca, które chcesz dodać jest już zajęta!"));
     }
     
 }

@@ -35,6 +35,7 @@ public class UserBean {
 
     public String dodaj() {
         EntityManager em = DBManager.getManager().createEntityManager();
+        user.setLogin(user.getLogin().toLowerCase());        
         em.getTransaction().begin();
         user.setId(null); 
         em.persist(user);
@@ -61,15 +62,17 @@ public class UserBean {
     public String doLogin() {
 
         EntityManager em = DBManager.getManager().createEntityManager();
+        List<User> users = em.createQuery("from User u").getResultList();
         List<String> logins = em.createQuery("SELECT u.login from User u").getResultList();
         List<String> passwords = em.createQuery("SELECT u.haslo from User u").getResultList();
-             
         
-        for(int i=0; i<logins.size();i++) {
-            if (logins.get(i).equals(user.getLogin()) && passwords.get(i).equals(user.getHaslo())) {
+        // Set input login to lower case and delete whitespaces
+        user.setLogin(user.getLogin().toLowerCase().replaceAll("\\s",""));
+        
+        for(int i=0; i<users.size();i++) {
+            if (users.get(i).getLogin().equals(user.getLogin()) && users.get(i).getHaslo().equals(user.getHaslo())) {
                 
-               List<Integer> loggedId =  em.createQuery("SELECT u.id from User u").getResultList();
-               this.user.setId(loggedId.get(i));
+               this.user.setId(users.get(i).getId());
                this.user = em.find(User.class, user.getId());
                em.close();
                loggedIn = true;

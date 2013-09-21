@@ -1,0 +1,75 @@
+CREATE TABLE `user` 
+(
+`ID` INT(11) NOT NULL AUTO_INCREMENT,
+
+`imie` VARCHAR(50) NOT NULL,
+
+`nazwisko` VARCHAR(50) NOT NULL,
+
+`login` VARCHAR(25) NOT NULL,
+
+`haslo` VARCHAR(25) NOT NULL,
+
+PRIMARY KEY(`ID`)
+)
+ENGINE=innoDB;
+
+
+
+CREATE TABLE `miejsce`
+ (
+`ID` INT(11) NOT NULL AUTO_INCREMENT,
+
+PRIMARY KEY(`ID`),
+
+`nazwa` VARCHAR(75) NOT NULL,
+
+`adres` VARCHAR(50)
+)
+ENGINE=innoDB;
+
+
+
+CREATE TABLE `event` 
+(
+`ID` INT(11) NOT NULL AUTO_INCREMENT,
+
+`nazwa` VARCHAR(45) NOT NULL,
+
+`czas_rozp` DATETIME NOT NULL,
+
+`czas_zakon` DATETIME NOT NULL,
+
+`miejsce` INT(10) NULL DEFAULT NULL,
+
+PRIMARY KEY(`ID`),
+
+INDEX `miejsce_event` (`miejsce`),
+
+CONSTRAINT `miejsce_event` FOREIGN KEY(`miejsce`)
+REFERENCES `miejsce` (`ID`)
+)
+ENGINE=innoDB;
+
+
+
+CREATE TABLE `zapis` 
+( 
+`ID` INT(11) NOT NULL AUTO_INCREMENT,
+
+`user` INT(10) NOT NULL,
+
+`event` INT(10) NOT NULL,
+
+PRIMARY KEY(ID),
+
+INDEX `user_zapis` (`user`),
+
+INDEX `event_zapis` (`event`),
+
+CONSTRAINT `user_zapis` FOREIGN KEY(`user`)
+REFERENCES `user` (`ID`),
+
+CONSTRAINT `event_zapis` FOREIGN KEY(`event`)
+REFERENCES `event` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
+)ENGINE=innoDB;

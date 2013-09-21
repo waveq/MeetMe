@@ -38,6 +38,13 @@ public class EventBean {
         this.event = new Event();
         return null;
     }
+    
+    public String zaladujZapisy () {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        this.event = em.find(Event.class, event.getId());
+        em.close();
+        return "tosigns";
+    }
 
 
     public void eventListener(ActionEvent ae) {

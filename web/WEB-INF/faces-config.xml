@@ -28,6 +28,15 @@
         <managed-bean-class>com.waveq.meetme.controllers.NavigationBean</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
      </managed-bean>
+     <managed-bean>
+        <managed-bean-name>zapisBean</managed-bean-name>
+        <managed-bean-class>com.waveq.meetme.controllers.ZapisBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>eventID</property-name>
+            <value>#{eventBean.event.id}</value>
+        </managed-property>
+     </managed-bean>
      
      <!-- CONVERTER -->
     <converter>
@@ -39,6 +48,14 @@
      <validator>
         <validator-id>loginValidator</validator-id>
         <validator-class>com.waveq.meetme.config.LoginValidator</validator-class>
+    </validator>
+    <validator>
+        <validator-id>eventValidator</validator-id>
+        <validator-class>com.waveq.meetme.config.EventValidator</validator-class>
+    </validator>
+    <validator>
+        <validator-id>miejsceValidator</validator-id>
+        <validator-class>com.waveq.meetme.config.MiejsceValidator</validator-class>
     </validator>
     
     <!-- NAVIGATION RULES -->
@@ -138,6 +155,16 @@
                 <redirect />
 	</navigation-case>
     </navigation-rule>
+    
+        <navigation-rule>
+         <from-view-id>/secure/showevents.xhtml</from-view-id>
+         <navigation-case>
+             <from-action>#{eventBean.zaladujZapisy}</from-action>
+             <from-outcome>tosigns</from-outcome>
+             <to-view-id>/secure/signs.xhtml</to-view-id>
+             <redirect />
+         </navigation-case>
+     </navigation-rule>
 
   
 </faces-config>

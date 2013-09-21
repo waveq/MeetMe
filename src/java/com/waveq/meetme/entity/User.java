@@ -5,14 +5,18 @@
 package com.waveq.meetme.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -31,6 +35,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u WHERE u.login = :login"),
     @NamedQuery(name = "User.findByHaslo", query = "SELECT u FROM User u WHERE u.haslo = :haslo")})
 public class User implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Zapis> zapisSet;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -128,6 +134,14 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.waveq.meetme.entity.User[ id=" + id + " ]";
+    }
+
+    public Set<Zapis> getZapisSet() {
+        return zapisSet;
+    }
+
+    public void setZapisSet(Set<Zapis> zapisSet) {
+        this.zapisSet = zapisSet;
     }
     
 }
