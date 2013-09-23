@@ -36,6 +36,9 @@
                     <li><h:commandLink action="#{navigationBean.redirectToShowPlaces}" value="Pokaż miejsca" /></li>
                     <li><h:commandLink action="#{navigationBean.redirectToAddEvent}" value="Dodaj wydarzenie" /></li>
                     <li><h:commandLink action="#{navigationBean.redirectToShowEvents}" value="Pokaż wydarzenia" /></li>
+                    <h:panelGroup id="isAdmin" rendered="#{userBean.admin}">
+                        <li><h:commandLink action="#{navigationBean.redirectToShowUsers}" value="Pokaż użytkowników" /></li>
+                    </h:panelGroup>
                     <li><h:commandLink action="#{userBean.doLogout}" value="Wyloguj" /></li>
                     </h:form>
                 </ul>

@@ -6,21 +6,27 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
     <ui:define name="content">
-        
+
         <h1>Lista miejsc</h1>
-        
-          <h:form>
+
+        <h:form>
             <h:dataTable value="#{miejsceBean.lista}" var="miejsce">
-               <h:column>
-                   <f:facet name="header">Nazwa</f:facet>
-                   <h:outputText value="#{miejsce.nazwa}"/>
-               </h:column>
-               <h:column>
-                   <f:facet name="header">Adres</f:facet>
-                   <h:outputText value="#{miejsce.adres}"/>
+                <h:column>
+                    <f:facet name="header">Nazwa</f:facet>
+                    <h:outputText value="#{miejsce.nazwa}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Adres</f:facet>
+                    <h:outputText value="#{miejsce.adres}"/>
+                </h:column>
+                <h:column>
+                    <h:panelGroup id="isAdmin" rendered="#{userBean.admin}">
+                        <h:commandLink value="Usuń" action="#{miejsceBean.usun}" actionListener="#{miejsceBean.miejsceListener}" >
+                            <f:param name="miejsceID" value="#{miejsce.id}" />
+                        </h:commandLink>
+                    </h:panelGroup>
                 </h:column>
             </h:dataTable>
         </h:form>
-        
     </ui:define>
 </ui:composition>

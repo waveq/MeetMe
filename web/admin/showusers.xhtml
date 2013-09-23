@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../mytemplate.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+    <ui:define name="content">
+         <h:form>
+            <h:dataTable value="#{userBean.lista}" var="user">
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    <h:outputText value="#{user.id}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Imie</f:facet>
+                    <h:outputText value="#{user.imie}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Nazwisko</f:facet>
+                    <h:outputText value="#{user.nazwisko}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Login</f:facet>
+                    <h:outputText value="#{user.login}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Hasło</f:facet>
+                    <h:outputText value="#{user.haslo}"/>
+                </h:column>
+      <!--          <h:column>
+                    <h:commandLink value="Usuń" action="#{userBean.usun}" actionListener="#{userBean.userListener}" >
+                        <f:param name="userID" value="#{user.id}" />
+                    </h:commandLink>                
+                </h:column> -->
+            </h:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

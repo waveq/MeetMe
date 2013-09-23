@@ -6,17 +6,17 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:h="http://java.sun.com/jsf/html">
     <ui:define name="content">
-        
+
         <h1>Lista miejsc</h1>
-        
-          <h:form>
-              <h:dataTable value="#{eventBean.lista}" var="event">
-                 <h:column>
-                   <f:facet name="header">Nazwa</f:facet>
-                   <h:commandLink value="#{event.nazwa}" action="#{eventBean.zaladujZapisy}" actionListener="#{eventBean.eventListener}" >
-                           <f:param name="eventID" value="#{event.id}" />
-                   </h:commandLink>
-               </h:column>
+
+        <h:form>
+            <h:dataTable value="#{eventBean.lista}" var="event">
+                <h:column>
+                    <f:facet name="header">Nazwa</f:facet>
+                    <h:commandLink value="#{event.nazwa}" action="#{eventBean.zaladujZapisy}" actionListener="#{eventBean.eventListener}" >
+                        <f:param name="eventID" value="#{event.id}" />
+                    </h:commandLink>
+                </h:column>
                 <h:column>
                     <f:facet name="header">Miejsce</f:facet>
                     <h:outputText value="#{event.miejsce == null? 'Nie sprecyzowano':event.miejsce.nazwa}"/>
@@ -25,21 +25,28 @@
                     <f:facet name="header">Adres</f:facet>
                     <h:outputText value="#{event.miejsce == null? 'Nie sprecyzowano':event.miejsce.adres}"/>
                 </h:column>
-              
-               <h:column>
-                   <f:facet name="header">Czas rozpoczęcia</f:facet>
-                   <h:outputText value="#{event.czasRozp}" >
-                       <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-                   </h:outputText>
+
+                <h:column>
+                    <f:facet name="header">Czas rozpoczęcia</f:facet>
+                    <h:outputText value="#{event.czasRozp}" >
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                    </h:outputText>
                 </h:column>
                 <h:column>
-                   <f:facet name="header">Czas zakończenia</f:facet>
-                   <h:outputText value="#{event.czasZakon}" >
-                       <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-                   </h:outputText>
+                    <f:facet name="header">Czas zakończenia</f:facet>
+                    <h:outputText value="#{event.czasZakon}" >
+                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <h:panelGroup id="isAdmin" rendered="#{userBean.admin}">
+                        <h:commandLink value="Usuń" action="#{eventBean.usun}" actionListener="#{eventBean.eventListener}" >
+                            <f:param name="eventID" value="#{event.id}" />
+                        </h:commandLink>
+                    </h:panelGroup>
                 </h:column>
             </h:dataTable>
         </h:form>
-        
+
     </ui:define>
 </ui:composition>
