@@ -51,12 +51,7 @@ public class EventBean {
         return null;
     }
 
-    public String zaladujZapisy() {
-        EntityManager em = DBManager.getManager().createEntityManager();
-        this.event = em.find(Event.class, event.getId());
-        em.close();
-        return "tosigns";
-    }
+   
 
     public void eventListener(ActionEvent ae) {
         String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("eventID").toString();
@@ -66,5 +61,30 @@ public class EventBean {
 
     public void dodajInformacje(String s) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
+    }
+    
+     public String edytuj() {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        em.getTransaction().begin();
+        em.merge(this.event);
+        em.getTransaction().commit();
+        em.close();
+        this.dodajInformacje("Zmieniono dane wydarzenia");
+        this.event = new Event();
+        return "showevents";
+     }
+     
+      public String zaladujZapisy() {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        this.event = em.find(Event.class, event.getId());
+        em.close();
+        return "tosigns";
+    }
+        
+     public String zaladujDoEdycji() {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        this.event = em.find(Event.class, event.getId());
+        em.close();
+        return "updateevent";
     }
 }

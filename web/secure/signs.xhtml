@@ -31,10 +31,14 @@
                     <f:facet name="header">Nazwisko</f:facet>
                     <h:outputText value="#{zapis.user.nazwisko}"/>
                 </h:column>
+                <h:column>
+                    <h:panelGroup id="isAdmin" rendered="#{userBean.admin}">
+                       <h:commandLink value="Usuń" action="#{zapisBean.usun}" actionListener="#{zapisBean.zapisListener}" >
+                           <f:param name="zapisID" value="#{zapis.id}" />
+                       </h:commandLink>
+                    </h:panelGroup>
+                </h:column>
             </h:dataTable>
-
-
-
             <h:commandButton value="#{zapisBean.signed==false? 'Zapisz się':'Wypisz się'}" action="#{zapisBean.zapisz}" />
         </h:form>
 

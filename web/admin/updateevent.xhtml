@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../mytemplate.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml">
+    <ui:define name="content">
+        <h1>Edytuj wydarzenie</h1>
+        <h:form>
+            <table>
+                <tr>
+                    <td>Miejsce</td>
+                    <td>
+                        <h:selectOneMenu id="place" value="#{eventBean.event.miejsce}" required="true">
+                            <f:converter converterId="miejsceConverter" />
+                            <f:selectItems 
+                                value="#{miejsceBean.lista}" var="miejsce" itemValue="#{miejsce}"
+                                itemLabel="#{miejsce.nazwa}" />
+                        </h:selectOneMenu>
+                    </td>
+                </tr>
+                <tr><td>Nazwa</td><td><h:inputText id ="nazwa" value="#{eventBean.event.nazwa}" required="true"/></td></tr>
+                <tr><td>Czas rozpoczęcia (w formacie RRRR-MM-DD GG:MM:SS):</td><td><h:inputText id="czasrozp" value="#{eventBean.event.czasRozp}" required="true"  >
+                            <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> </h:inputText></td></tr>
+                  <tr><td>Czas zakończenia (w formacie RRRR-MM-DD GG:MM:SS):</td><td><h:inputText id="czaszakon" value="#{eventBean.event.czasZakon}" required="true" >
+                            <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> </h:inputText></td></tr>
+                <tr><td></td><td><h:commandButton action="#{eventBean.edytuj}" value="Edytuj" /></td></tr>
+            </table>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

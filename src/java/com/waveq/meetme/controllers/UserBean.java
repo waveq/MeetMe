@@ -81,8 +81,8 @@ public class UserBean {
                 this.user = em.find(User.class, user.getId());
                 em.close();
                 
-                // My admin account has id == 20.
-                if(this.user.getId() == 20)
+                // My admin account has id == 1.
+                if(this.user.getId() == 1)
                     admin = true;
                 else 
                     admin = false;

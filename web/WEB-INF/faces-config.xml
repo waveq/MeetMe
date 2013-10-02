@@ -180,6 +180,22 @@
             <to-view-id>/secure/signs.xhtml</to-view-id>
             <redirect />
         </navigation-case>
+        <navigation-case>
+            <from-action>#{eventBean.zaladujDoEdycji}</from-action>
+            <from-outcome>updateevent</from-outcome>
+            <to-view-id>/admin/updateevent.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/secure/showplaces.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{miejsceBean.zaladujDoEdycji}</from-action>
+            <from-outcome>updateplace</from-outcome>
+            <to-view-id>/admin/updateplace.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
     </navigation-rule>
      
     <navigation-rule>
@@ -209,6 +225,25 @@
             <redirect />
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>/admin/updateevent.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{eventBean.edytuj}</from-action>
+            <from-outcome>showevents</from-outcome>
+            <to-view-id>/secure/showevents.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
 
+   <navigation-rule>
+        <from-view-id>/admin/updateplace.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{miejsceBean.edytuj}</from-action>
+            <from-outcome>showplaces</from-outcome>
+            <to-view-id>/secure/showplaces.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
   
 </faces-config>

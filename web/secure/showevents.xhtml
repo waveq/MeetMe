@@ -39,7 +39,14 @@
                     </h:outputText>
                 </h:column>
                 <h:column>
-                    <h:panelGroup id="isAdmin" rendered="#{userBean.admin}">
+                    <h:panelGroup id="isAdmin-update" rendered="#{userBean.admin}">
+                        <h:commandLink value="Edytuj" action="#{eventBean.zaladujDoEdycji}" actionListener="#{eventBean.eventListener}" >
+                            <f:param name="eventID" value="#{event.id}" />
+                        </h:commandLink> 
+                    </h:panelGroup>
+                </h:column>
+                <h:column>
+                    <h:panelGroup id="isAdmin-delete" rendered="#{userBean.admin}">
                         <h:commandLink value="Usuń" action="#{eventBean.usun}" actionListener="#{eventBean.eventListener}" >
                             <f:param name="eventID" value="#{event.id}" />
                         </h:commandLink>

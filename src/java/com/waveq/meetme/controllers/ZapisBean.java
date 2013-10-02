@@ -73,6 +73,24 @@ public class ZapisBean {
         signed = false;
         return signed;
     }
+    
+    public String usun() {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        em.getTransaction().begin();
+        this.zapis = em.find(Zapis.class, zapis.getId());
+        em.remove(this.zapis);
+        this.zapis = new Zapis();
+        em.getTransaction().commit();
+        em.close();
+        this.dodajInformacje("Wypisano użytkownika");
+        return null;
+    }
+    
+    public void zapisListener(ActionEvent ae) {
+        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("zapisID").toString();
+        int id = Integer.parseInt(ids);
+        this.zapis.setId(id);
+    }
 
     public void dodajInformacje(String s) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));

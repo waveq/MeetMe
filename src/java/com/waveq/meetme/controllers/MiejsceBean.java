@@ -64,6 +64,24 @@ public class MiejsceBean {
         int id = Integer.parseInt(ids);
         this.miejsce.setId(id);
     }
+    
+    public String zaladujDoEdycji() {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        this.miejsce = em.find(Miejsce.class, miejsce.getId());
+        em.close();
+        return "updateplace";
+    }
+    
+     public String edytuj() {
+        EntityManager em = DBManager.getManager().createEntityManager();
+        em.getTransaction().begin();
+        em.merge(this.miejsce);
+        em.getTransaction().commit();
+        em.close();
+        this.dodajInformacje("Zmieniono dane miejsca");
+        this.miejsce = new Miejsce();
+        return "showplaces";
+     }
 
     public void dodajInformacje(String s) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
