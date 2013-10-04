@@ -23,9 +23,9 @@ public class EventValidator implements Validator {
     public void validate(FacesContext ctx, UIComponent component, Object value){
         if(!(value instanceof String))
             throw new ValidatorException(new FacesMessage("Przekazana wartosc nie jest lancuchem znakow!"));
-        String nazwa = (String)value;
+        String name = (String)value;
         EntityManager em = DBManager.getManager().createEntityManager();
-        List<Event> list = em.createNamedQuery("Event.findByNazwa").setParameter("nazwa", nazwa).getResultList();
+        List<Event> list = em.createNamedQuery("Event.findByName").setParameter("name", name).getResultList();
         em.close();
         if(list.size()>0) 
             throw new ValidatorException(new FacesMessage("Nazwa wydarzenia, które chcesz dodać jest już zajęta!"));

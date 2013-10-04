@@ -6,15 +6,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.persistence.EntityManager;
-import com.waveq.meetme.entity.Miejsce;
+import com.waveq.meetme.entity.Place;
 
 
-public class MiejsceConverter implements Converter {
+public class PlaceConverter implements Converter {
     @Override
     public String getAsString(FacesContext ctx, UIComponent c, Object o) {
-        if (! (o instanceof Miejsce))
+        if (! (o instanceof Place))
             throw new ConverterException(new FacesMessage("Nie udalo sie dokonac konwersji!"));
-        Miejsce p = (Miejsce)o;
+        Place p = (Place)o;
         return p.getId().toString();
 
     }
@@ -22,7 +22,7 @@ public class MiejsceConverter implements Converter {
     public Object getAsObject(FacesContext ctx, UIComponent c, String s) {
         Integer i = Integer.valueOf(s);
         EntityManager em = DBManager.getManager().createEntityManager();
-        Miejsce p = em.find(Miejsce.class, i);
+        Place p = em.find(Place.class, i);
         em.close();
         return p;
     }

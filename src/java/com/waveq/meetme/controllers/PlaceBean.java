@@ -6,50 +6,50 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.persistence.EntityManager;
 import com.waveq.meetme.config.DBManager;
-import com.waveq.meetme.entity.Miejsce;
+import com.waveq.meetme.entity.Place;
 import javax.persistence.RollbackException;
 
-public class MiejsceBean {
+public class PlaceBean {
 
-    private Miejsce miejsce = new Miejsce();
+    private Place place = new Place();
 
-    public Miejsce getMiejsce() {
-        return miejsce;
+    public Place getPlace() {
+        return place;
     }
 
-    public void setMiejsce(Miejsce miejsce) {
-        this.miejsce = miejsce;
+    public void setPlace(Place place) {
+        this.place = place;
     }
 
-    public List<Miejsce> getLista() {
+    public List<Place> getList() {
         EntityManager em = DBManager.getManager().createEntityManager();
-        List list = em.createNamedQuery("Miejsce.findAll").getResultList();
+        List list = em.createNamedQuery("Place.findAll").getResultList();
         em.close();
         return list;
     }
 
-    public String dodaj() {
+    public String create() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
-        miejsce.setId(null);
-        em.persist(miejsce);
+        place.setId(null);
+        em.persist(place);
         em.getTransaction().commit();
-        this.dodajInformacje("Dodano miejsce");
+        this.addInformation("Dodano miejsce");
         em.close();
-        this.miejsce = new Miejsce();
+        this.place = new Place();
         return null;
     }
       
-      public String usun() {
+      public String delete() {
         try{
             EntityManager em = DBManager.getManager().createEntityManager();
             em.getTransaction().begin();
-            this.miejsce = em.find(Miejsce.class, miejsce.getId());
-            em.remove(this.miejsce);
-            this.miejsce = new Miejsce();
+            this.place = em.find(Place.class, place.getId());
+            em.remove(this.place);
+            this.place = new Place();
             em.getTransaction().commit();
             em.close();
-            this.dodajInformacje("Usunieto miejsce");
+            this.addInformation("Usunieto miejsce");
         }catch(RollbackException r) {
             FacesMessage msg = new FacesMessage("Miejsce, które chcesz usunąć prawdopodobnie jest wykorzystywane w jednym z wydarzeń. "
                     + "Spróbuj najpierw usunąć to wydarzenie.", "ERROR MSG");
@@ -59,31 +59,31 @@ public class MiejsceBean {
         return null;
     }
 
-    public void miejsceListener(ActionEvent ae) {
-        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("miejsceID").toString();
+    public void placeListener(ActionEvent ae) {
+        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("placeID").toString();
         int id = Integer.parseInt(ids);
-        this.miejsce.setId(id);
+        this.place.setId(id);
     }
     
-    public String zaladujDoEdycji() {
+    public String loadToUpdate() {
         EntityManager em = DBManager.getManager().createEntityManager();
-        this.miejsce = em.find(Miejsce.class, miejsce.getId());
+        this.place = em.find(Place.class, place.getId());
         em.close();
         return "updateplace";
     }
     
-     public String edytuj() {
+     public String update() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
-        em.merge(this.miejsce);
+        em.merge(this.place);
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Zmieniono dane miejsca");
-        this.miejsce = new Miejsce();
+        this.addInformation("Zmieniono dane miejsca");
+        this.place = new Place();
         return "showplaces";
      }
 
-    public void dodajInformacje(String s) {
+    public void addInformation(String s) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
 }

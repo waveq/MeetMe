@@ -12,12 +12,12 @@
             <table>
                 <tr><td>Nazwa</td>
                     <td>
-                        <h:inputText id="nazwa" value="#{miejsceBean.miejsce.nazwa}" required="true" >
-                        <f:validator id="validator"  validatorId="miejsceValidator" />
+                        <h:inputText id="name" value="#{placeBean.place.name}" required="true" >
+                        <f:validator id="validator"  validatorId="placeValidator" />
                         </h:inputText>
                     </td></tr>
-                <tr><td>Adres</td><td><h:inputText id="adres" value="#{miejsceBean.miejsce.adres}" required="true" /></td></tr>
-                <tr><td></td><td><h:commandButton action="#{miejsceBean.dodaj}" value="Dodaj" /></td></tr>
+                <tr><td>Adres</td><td><h:inputText id="address" value="#{placeBean.place.address}" required="true" /></td></tr>
+                <tr><td></td><td><h:commandButton action="#{placeBean.create}" value="Dodaj" /></td></tr>
             </table>
         </h:form>
     </ui:define>

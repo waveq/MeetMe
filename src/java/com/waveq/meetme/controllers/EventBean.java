@@ -20,26 +20,26 @@ public class EventBean {
         this.event = event;
     }
 
-    public List<Event> getLista() {
+    public List<Event> getList() {
         EntityManager em = DBManager.getManager().createEntityManager();
         List list = em.createNamedQuery("Event.findAll").getResultList();
         em.close();
         return list;
     }
 
-    public String dodaj() {
+    public String create() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
         event.setId(null);
         em.persist(event);
         em.getTransaction().commit();
-        this.dodajInformacje("Dodano wydarzenie");
+        this.addInformation("Dodano wydarzenie");
         em.close();
         this.event = new Event();
         return null;
     }
     
-    public String usun() {
+    public String delete() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
         this.event = em.find(Event.class, event.getId());
@@ -47,7 +47,7 @@ public class EventBean {
         this.event = new Event();
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Usunieto wydarzenie");
+        this.addInformation("Usunieto wydarzenie");
         return null;
     }
 
@@ -59,29 +59,29 @@ public class EventBean {
         this.event.setId(id);
     }
 
-    public void dodajInformacje(String s) {
+    public void addInformation(String s) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
     
-     public String edytuj() {
+     public String update() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
         em.merge(this.event);
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Zmieniono dane wydarzenia");
+        this.addInformation("Zmieniono dane wydarzenia");
         this.event = new Event();
         return "showevents";
      }
      
-      public String zaladujZapisy() {
+      public String loadSigns() {
         EntityManager em = DBManager.getManager().createEntityManager();
         this.event = em.find(Event.class, event.getId());
         em.close();
         return "tosigns";
     }
         
-     public String zaladujDoEdycji() {
+     public String loadToUpdate() {
         EntityManager em = DBManager.getManager().createEntityManager();
         this.event = em.find(Event.class, event.getId());
         em.close();

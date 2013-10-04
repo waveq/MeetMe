@@ -9,37 +9,37 @@
 
         <h1>Zapisy</h1>
         <table>
-            <tr><td>Nazwa:</td><td><h:outputText value="#{eventBean.event.nazwa}" /></td></tr>
-            <tr><td>Miejsce:</td><td><h:outputText value="#{eventBean.event.miejsce.nazwa}" /></td></tr>
-            <tr><td>Adres:</td><td><h:outputText value="#{eventBean.event.miejsce.adres}" /></td></tr>
-            <tr><td>Czas rozpoczęcia:</td><td><h:outputText value="#{eventBean.event.czasRozp}" >
+            <tr><td>Nazwa:</td><td><h:outputText value="#{eventBean.event.name}" /></td></tr>
+            <tr><td>Miejsce:</td><td><h:outputText value="#{eventBean.event.place.name}" /></td></tr>
+            <tr><td>Adres:</td><td><h:outputText value="#{eventBean.event.place.address}" /></td></tr>
+            <tr><td>Czas rozpoczęcia:</td><td><h:outputText value="#{eventBean.event.startTime}" >
                         <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
                     </h:outputText></td></tr>
-            <tr><td>Czas zakończenia:</td><td><h:outputText value="#{eventBean.event.czasZakon}" >
+            <tr><td>Czas zakończenia:</td><td><h:outputText value="#{eventBean.event.endTime}" >
                         <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
                     </h:outputText></td></tr>
         </table>
 
         <h1>Na wydarzenie przyjdą:</h1>    
         <h:form>
-            <h:dataTable value="#{zapisBean.lista}" var="zapis">
+            <h:dataTable value="#{signBean.list}" var="sign">
                 <h:column>
                     <f:facet name="header">Imie</f:facet>
-                    <h:outputText value="#{zapis.user.imie}"/>
+                    <h:outputText value="#{sign.user.name}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Nazwisko</f:facet>
-                    <h:outputText value="#{zapis.user.nazwisko}"/>
+                    <h:outputText value="#{sign.user.lastName}"/>
                 </h:column>
                 <h:column>
                     <h:panelGroup id="isAdmin" rendered="#{userBean.admin}">
-                       <h:commandLink value="Usuń" action="#{zapisBean.usun}" actionListener="#{zapisBean.zapisListener}" >
-                           <f:param name="zapisID" value="#{zapis.id}" />
+                       <h:commandLink value="Usuń" action="#{signBean.delete}" actionListener="#{signBean.signListener}" >
+                           <f:param name="signID" value="#{sign.id}" />
                        </h:commandLink>
                     </h:panelGroup>
                 </h:column>
             </h:dataTable>
-            <h:commandButton value="#{zapisBean.signed==false? 'Zapisz się':'Wypisz się'}" action="#{zapisBean.zapisz}" />
+            <h:commandButton value="#{signBean.signed==false? 'Zapisz się':'Wypisz się'}" action="#{signBean.signIn}" />
         </h:form>
 
     </ui:define>

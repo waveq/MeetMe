@@ -5,10 +5,10 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
     <!-- BEANS -->
     <managed-bean>
-        <managed-bean-name>miejsceBean</managed-bean-name>
-        <managed-bean-class>com.waveq.meetme.controllers.MiejsceBean</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
+        <managed-bean-name>placeBean</managed-bean-name>
+        <managed-bean-class>com.waveq.meetme.controllers.PlaceBean</managed-bean-class>
+    
+        <managed-bean-scope>session</managed-bean-scope></managed-bean>
     <managed-bean>
         <managed-bean-name>eventBean</managed-bean-name>
         <managed-bean-class>com.waveq.meetme.controllers.EventBean</managed-bean-class>
@@ -29,8 +29,9 @@
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
     <managed-bean>
-        <managed-bean-name>zapisBean</managed-bean-name>
-        <managed-bean-class>com.waveq.meetme.controllers.ZapisBean</managed-bean-class>
+        <managed-bean-name>signBean</managed-bean-name>
+        <managed-bean-class>com.waveq.meetme.controllers.SignBean</managed-bean-class>
+    
         <managed-bean-scope>request</managed-bean-scope>
         <managed-property>
             <property-name>eventID</property-name>
@@ -39,13 +40,12 @@
         <managed-property>
             <property-name>userID</property-name>
             <value>#{userBean.user.id}</value>
-        </managed-property>
-    </managed-bean>
+        </managed-property></managed-bean>
      
     <!-- CONVERTER -->
     <converter>
-        <converter-id>miejsceConverter</converter-id>
-        <converter-class>com.waveq.meetme.config.MiejsceConverter</converter-class>
+        <converter-id>placeConverter</converter-id>
+        <converter-class>com.waveq.meetme.config.PlaceConverter</converter-class>
     </converter>
     
     <!-- VALIDATOR -->
@@ -58,8 +58,8 @@
         <validator-class>com.waveq.meetme.config.EventValidator</validator-class>
     </validator>
     <validator>
-        <validator-id>miejsceValidator</validator-id>
-        <validator-class>com.waveq.meetme.config.MiejsceValidator</validator-class>
+        <validator-id>placeValidator</validator-id>
+        <validator-class>com.waveq.meetme.config.PlaceValidator</validator-class>
     </validator>
     
     <!-- NAVIGATION RULES -->
@@ -132,7 +132,7 @@
     <navigation-rule>
         <from-view-id>/createacc.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{userBean.dodaj}</from-action>
+            <from-action>#{userBean.create}</from-action>
             <from-outcome>toindex</from-outcome>
             <to-view-id>/index.xhtml</to-view-id>
         </navigation-case>
@@ -175,13 +175,13 @@
     <navigation-rule>
         <from-view-id>/secure/showevents.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{eventBean.zaladujZapisy}</from-action>
+            <from-action>#{eventBean.loadSigns}</from-action>
             <from-outcome>tosigns</from-outcome>
             <to-view-id>/secure/signs.xhtml</to-view-id>
             <redirect />
         </navigation-case>
         <navigation-case>
-            <from-action>#{eventBean.zaladujDoEdycji}</from-action>
+            <from-action>#{eventBean.loadToUpdate}</from-action>
             <from-outcome>updateevent</from-outcome>
             <to-view-id>/admin/updateevent.xhtml</to-view-id>
             <redirect />
@@ -191,7 +191,7 @@
     <navigation-rule>
         <from-view-id>/secure/showplaces.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{miejsceBean.zaladujDoEdycji}</from-action>
+            <from-action>#{placeBean.loadToUpdate}</from-action>
             <from-outcome>updateplace</from-outcome>
             <to-view-id>/admin/updateplace.xhtml</to-view-id>
             <redirect />
@@ -229,7 +229,7 @@
     <navigation-rule>
         <from-view-id>/admin/updateevent.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{eventBean.edytuj}</from-action>
+            <from-action>#{eventBean.update}</from-action>
             <from-outcome>showevents</from-outcome>
             <to-view-id>/secure/showevents.xhtml</to-view-id>
             <redirect />
@@ -239,7 +239,7 @@
    <navigation-rule>
         <from-view-id>/admin/updateplace.xhtml</from-view-id>
         <navigation-case>
-            <from-action>#{miejsceBean.edytuj}</from-action>
+            <from-action>#{placeBean.update}</from-action>
             <from-outcome>showplaces</from-outcome>
             <to-view-id>/secure/showplaces.xhtml</to-view-id>
             <redirect />

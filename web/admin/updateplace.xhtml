@@ -9,9 +9,9 @@
         <h1>Edytuj miejsce</h1>
         <h:form>
             <table>
-                <tr><td>Nazwa</td><td><h:inputText id ="nazwa" value="#{miejsceBean.miejsce.nazwa}" required="true"/></td></tr>
-                <tr><td>Adres</td><td><h:inputText id="adres" value="#{miejsceBean.miejsce.adres}" required="true" /></td></tr>
-                <tr><td></td><td><h:commandButton action="#{miejsceBean.edytuj}" value="Edytuj" /></td></tr>
+                <tr><td>Nazwa</td><td><h:inputText id="name" value="#{placeBean.place.name}" required="true"/></td></tr>
+                <tr><td>Adres</td><td><h:inputText id="adres" value="#{placeBean.place.address}" required="true" /></td></tr>
+                <tr><td></td><td><h:commandButton action="#{placeBean.update}" value="Edytuj" /></td></tr>
             </table>
         </h:form>
     </ui:define>

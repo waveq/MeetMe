@@ -8,18 +8,18 @@
 
     <ui:define name="content">
          <h:form>
-            <h:dataTable value="#{userBean.lista}" var="user">
+            <h:dataTable value="#{userBean.list}" var="user">
                 <h:column>
                     <f:facet name="header">ID</f:facet>
                     <h:outputText value="#{user.id}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Imie</f:facet>
-                    <h:outputText value="#{user.imie}"/>
+                    <h:outputText value="#{user.name}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Nazwisko</f:facet>
-                    <h:outputText value="#{user.nazwisko}"/>
+                    <h:outputText value="#{user.lastName}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Login</f:facet>
@@ -27,10 +27,10 @@
                 </h:column>
                 <h:column>
                     <f:facet name="header">Hasło</f:facet>
-                    <h:outputText value="#{user.haslo}"/>
+                    <h:outputText value="#{user.password}"/>
                 </h:column>
       <!--          <h:column>
-                    <h:commandLink value="Usuń" action="#{userBean.usun}" actionListener="#{userBean.userListener}" >
+                    <h:commandLink value="Usuń" action="#{userBean.delete}" actionListener="#{userBean.userListener}" >
                         <f:param name="userID" value="#{user.id}" />
                     </h:commandLink>                
                 </h:column> -->

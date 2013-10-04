@@ -10,44 +10,44 @@
         <h1>Lista miejsc</h1>
 
         <h:form>
-            <h:dataTable value="#{eventBean.lista}" var="event">
+            <h:dataTable value="#{eventBean.list}" var="event">
                 <h:column>
                     <f:facet name="header">Nazwa</f:facet>
-                    <h:commandLink value="#{event.nazwa}" action="#{eventBean.zaladujZapisy}" actionListener="#{eventBean.eventListener}" >
+                    <h:commandLink value="#{event.name}" action="#{eventBean.loadSigns}" actionListener="#{eventBean.eventListener}" >
                         <f:param name="eventID" value="#{event.id}" />
                     </h:commandLink>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Miejsce</f:facet>
-                    <h:outputText value="#{event.miejsce == null? 'Nie sprecyzowano':event.miejsce.nazwa}"/>
+                    <h:outputText value="#{event.place == null? 'Nie sprecyzowano':event.place.name}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Adres</f:facet>
-                    <h:outputText value="#{event.miejsce == null? 'Nie sprecyzowano':event.miejsce.adres}"/>
+                    <h:outputText value="#{event.place == null? 'Nie sprecyzowano':event.place.address}"/>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">Czas rozpoczęcia</f:facet>
-                    <h:outputText value="#{event.czasRozp}" >
+                    <h:outputText value="#{event.startTime}" >
                         <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
                     </h:outputText>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Czas zakończenia</f:facet>
-                    <h:outputText value="#{event.czasZakon}" >
+                    <h:outputText value="#{event.endTime}" >
                         <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
                     </h:outputText>
                 </h:column>
                 <h:column>
                     <h:panelGroup id="isAdmin-update" rendered="#{userBean.admin}">
-                        <h:commandLink value="Edytuj" action="#{eventBean.zaladujDoEdycji}" actionListener="#{eventBean.eventListener}" >
+                        <h:commandLink value="Edytuj" action="#{eventBean.loadToUpdate()}" actionListener="#{eventBean.eventListener}" >
                             <f:param name="eventID" value="#{event.id}" />
                         </h:commandLink> 
                     </h:panelGroup>
                 </h:column>
                 <h:column>
                     <h:panelGroup id="isAdmin-delete" rendered="#{userBean.admin}">
-                        <h:commandLink value="Usuń" action="#{eventBean.usun}" actionListener="#{eventBean.eventListener}" >
+                        <h:commandLink value="Usuń" action="#{eventBean.delete}" actionListener="#{eventBean.eventListener}" >
                             <f:param name="eventID" value="#{event.id}" />
                         </h:commandLink>
                     </h:panelGroup>

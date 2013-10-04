@@ -14,7 +14,7 @@
                 <h:inputText value="#{userBean.user.login}" id="username"/>
                 <br/>
                 <h:outputText value="Hasło:"/>
-                <h:inputSecret value="#{userBean.user.haslo}" id="password"/>
+                <h:inputSecret value="#{userBean.user.password}" id="password"/>
                 <br/>
                 <h:commandButton id="button" value="Login" action="#{userBean.doLogin}" />
                 <br/>
@@ -28,8 +28,8 @@
         <h:panelGroup id="loggedIn-Content" rendered="#{userBean.loggedIn}">
             <h1>Witaj</h1>
             <table>
-                <tr><td>Imie:</td><td>#{userBean.user.imie}</td></tr>
-                <tr><td>Nazwisko:</td><td>#{userBean.user.nazwisko}</td></tr>
+                <tr><td>Imie:</td><td>#{userBean.user.name}</td></tr>
+                <tr><td>Nazwisko:</td><td>#{userBean.user.lastName}</td></tr>
             </table>
         </h:panelGroup>
     </ui:define>

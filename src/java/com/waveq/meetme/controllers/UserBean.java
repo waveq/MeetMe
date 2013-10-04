@@ -23,7 +23,7 @@ public class UserBean {
         this.user = user;
     }
 
-    public List<User> getLista() {
+    public List<User> getList() {
         EntityManager em = DBManager.getManager().createEntityManager();
         List list = em.createNamedQuery("User.findAll").getResultList();
         em.close();
@@ -31,20 +31,20 @@ public class UserBean {
         return list;
     }
 
-    public String dodaj() {
+    public String create() {
         EntityManager em = DBManager.getManager().createEntityManager();
         user.setLogin(user.getLogin().toLowerCase());
         em.getTransaction().begin();
         user.setId(null);
         em.persist(user);
         em.getTransaction().commit();
-        this.dodajInformacje("Dodano użytkownika");
+        this.addInformation("Dodano użytkownika");
         em.close();
         this.user = new User();
         return navigationBean.redirectToIndex();
     }
     
-    public String usun() {
+    public String delete() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
         this.user = em.find(User.class, user.getId());
@@ -52,7 +52,7 @@ public class UserBean {
         this.user = new User();
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Usunieto użytkownika");
+        this.addInformation("Usunieto użytkownika");
         return null;
     }
 
@@ -62,7 +62,7 @@ public class UserBean {
         this.user.setId(id);
     }
 
-    public void dodajInformacje(String s) {
+    public void addInformation(String s) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
 
@@ -75,14 +75,14 @@ public class UserBean {
         user.setLogin(user.getLogin().toLowerCase().replaceAll("\\s", ""));
 
         for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getLogin().equals(user.getLogin()) && users.get(i).getHaslo().equals(user.getHaslo())) {
+            if (users.get(i).getLogin().equals(user.getLogin()) && users.get(i).getPassword().equals(user.getPassword())) {
 
                 this.user.setId(users.get(i).getId());
                 this.user = em.find(User.class, user.getId());
                 em.close();
                 
-                // My admin account has id == 1.
-                if(this.user.getId() == 1)
+                // My admin account has id == 2.
+                if(this.user.getId() == 2)
                     admin = true;
                 else 
                     admin = false;

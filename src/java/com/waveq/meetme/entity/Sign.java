@@ -20,31 +20,31 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Szym
+ * @author Szymon
  */
 @Entity
-@Table(name = "zapis")
+@Table(name = "sign")
 @NamedQueries({
-    @NamedQuery(name = "Zapis.findAll", query = "SELECT z FROM Zapis z"),
-    @NamedQuery(name = "Zapis.findById", query = "SELECT z FROM Zapis z WHERE z.id = :id")})
-public class Zapis implements Serializable {
+    @NamedQuery(name = "Sign.findAll", query = "SELECT s FROM Sign s"),
+    @NamedQuery(name = "Sign.findById", query = "SELECT s FROM Sign s WHERE s.id = :id")})
+public class Sign implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
     private Integer id;
-    @JoinColumn(name = "user", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private User user;
     @JoinColumn(name = "event", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Event event;
+    @JoinColumn(name = "user", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private User user;
 
-    public Zapis() {
+    public Sign() {
     }
 
-    public Zapis(Integer id) {
+    public Sign(Integer id) {
         this.id = id;
     }
 
@@ -56,20 +56,20 @@ public class Zapis implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Event getEvent() {
         return event;
     }
 
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -82,10 +82,10 @@ public class Zapis implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Zapis)) {
+        if (!(object instanceof Sign)) {
             return false;
         }
-        Zapis other = (Zapis) object;
+        Sign other = (Sign) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -94,7 +94,7 @@ public class Zapis implements Serializable {
 
     @Override
     public String toString() {
-        return "com.waveq.meetme.entity.Zapis[ id=" + id + " ]";
+        return "com.waveq.meetme.entity.Sign[ id=" + id + " ]";
     }
     
 }

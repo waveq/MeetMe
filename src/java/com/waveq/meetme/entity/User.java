@@ -18,25 +18,21 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Szym
+ * @author Szymon
  */
 @Entity
 @Table(name = "user")
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
     @NamedQuery(name = "User.findById", query = "SELECT u FROM User u WHERE u.id = :id"),
-    @NamedQuery(name = "User.findByImie", query = "SELECT u FROM User u WHERE u.imie = :imie"),
-    @NamedQuery(name = "User.findByNazwisko", query = "SELECT u FROM User u WHERE u.nazwisko = :nazwisko"),
+    @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name = :name"),
+    @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName"),
     @NamedQuery(name = "User.findByLogin", query = "SELECT u FROM User u WHERE u.login = :login"),
-    @NamedQuery(name = "User.findByHaslo", query = "SELECT u FROM User u WHERE u.haslo = :haslo")})
+    @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")})
 public class User implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-    private Set<Zapis> zapisSet;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,17 +40,19 @@ public class User implements Serializable {
     @Column(name = "ID", nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "imie", nullable = false, length = 50)
-    private String imie;
+    @Column(name = "name", nullable = false, length = 50)
+    private String name;
     @Basic(optional = false)
-    @Column(name = "nazwisko", nullable = false, length = 50)
-    private String nazwisko;
+    @Column(name = "last_name", nullable = false, length = 50)
+    private String lastName;
     @Basic(optional = false)
     @Column(name = "login", nullable = false, length = 25)
     private String login;
     @Basic(optional = false)
-    @Column(name = "haslo", nullable = false, length = 25)
-    private String haslo;
+    @Column(name = "password", nullable = false, length = 25)
+    private String password;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    private Set<Sign> signSet;
 
     public User() {
     }
@@ -63,12 +61,12 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String imie, String nazwisko, String login, String haslo) {
+    public User(Integer id, String name, String lastName, String login, String password) {
         this.id = id;
-        this.imie = imie;
-        this.nazwisko = nazwisko;
+        this.name = name;
+        this.lastName = lastName;
         this.login = login;
-        this.haslo = haslo;
+        this.password = password;
     }
 
     public Integer getId() {
@@ -79,20 +77,20 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getImie() {
-        return imie;
+    public String getName() {
+        return name;
     }
 
-    public void setImie(String imie) {
-        this.imie = imie;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getNazwisko() {
-        return nazwisko;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setNazwisko(String nazwisko) {
-        this.nazwisko = nazwisko;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getLogin() {
@@ -103,12 +101,20 @@ public class User implements Serializable {
         this.login = login;
     }
 
-    public String getHaslo() {
-        return haslo;
+    public String getPassword() {
+        return password;
     }
 
-    public void setHaslo(String haslo) {
-        this.haslo = haslo;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Sign> getSignSet() {
+        return signSet;
+    }
+
+    public void setSignSet(Set<Sign> signSet) {
+        this.signSet = signSet;
     }
 
     @Override
@@ -134,14 +140,6 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "com.waveq.meetme.entity.User[ id=" + id + " ]";
-    }
-
-    public Set<Zapis> getZapisSet() {
-        return zapisSet;
-    }
-
-    public void setZapisSet(Set<Zapis> zapisSet) {
-        this.zapisSet = zapisSet;
     }
     
 }

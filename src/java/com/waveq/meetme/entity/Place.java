@@ -20,18 +20,16 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Szym
+ * @author Szymon
  */
 @Entity
-@Table(name = "miejsce")
+@Table(name = "place")
 @NamedQueries({
-    @NamedQuery(name = "Miejsce.findAll", query = "SELECT m FROM Miejsce m"),
-    @NamedQuery(name = "Miejsce.findById", query = "SELECT m FROM Miejsce m WHERE m.id = :id"),
-    @NamedQuery(name = "Miejsce.findByNazwa", query = "SELECT m FROM Miejsce m WHERE m.nazwa = :nazwa"),
-    @NamedQuery(name = "Miejsce.findByAdres", query = "SELECT m FROM Miejsce m WHERE m.adres = :adres")})
-public class Miejsce implements Serializable {
-    @OneToMany(mappedBy = "miejsce", fetch = FetchType.EAGER)
-    private Set<Event> eventSet;
+    @NamedQuery(name = "Place.findAll", query = "SELECT p FROM Place p"),
+    @NamedQuery(name = "Place.findById", query = "SELECT p FROM Place p WHERE p.id = :id"),
+    @NamedQuery(name = "Place.findByName", query = "SELECT p FROM Place p WHERE p.name = :name"),
+    @NamedQuery(name = "Place.findByAddress", query = "SELECT p FROM Place p WHERE p.address = :address")})
+public class Place implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,21 +37,23 @@ public class Miejsce implements Serializable {
     @Column(name = "ID", nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "nazwa", nullable = false, length = 75)
-    private String nazwa;
-    @Column(name = "adres", length = 50)
-    private String adres;
+    @Column(name = "name", nullable = false, length = 75)
+    private String name;
+    @Column(name = "address", length = 50)
+    private String address;
+    @OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
+    private Set<Event> eventSet;
 
-    public Miejsce() {
+    public Place() {
     }
 
-    public Miejsce(Integer id) {
+    public Place(Integer id) {
         this.id = id;
     }
 
-    public Miejsce(Integer id, String nazwa) {
+    public Place(Integer id, String name) {
         this.id = id;
-        this.nazwa = nazwa;
+        this.name = name;
     }
 
     public Integer getId() {
@@ -64,20 +64,28 @@ public class Miejsce implements Serializable {
         this.id = id;
     }
 
-    public String getNazwa() {
-        return nazwa;
+    public String getName() {
+        return name;
     }
 
-    public void setNazwa(String nazwa) {
-        this.nazwa = nazwa;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAdres() {
-        return adres;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdres(String adres) {
-        this.adres = adres;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Set<Event> getEventSet() {
+        return eventSet;
+    }
+
+    public void setEventSet(Set<Event> eventSet) {
+        this.eventSet = eventSet;
     }
 
     @Override
@@ -90,10 +98,10 @@ public class Miejsce implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Miejsce)) {
+        if (!(object instanceof Place)) {
             return false;
         }
-        Miejsce other = (Miejsce) object;
+        Place other = (Place) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -102,15 +110,7 @@ public class Miejsce implements Serializable {
 
     @Override
     public String toString() {
-        return "com.waveq.meetme.Miejsce[ id=" + id + " ]";
-    }
-
-    public Set<Event> getEventSet() {
-        return eventSet;
-    }
-
-    public void setEventSet(Set<Event> eventSet) {
-        this.eventSet = eventSet;
+        return "com.waveq.meetme.entity.Place[ id=" + id + " ]";
     }
     
 }

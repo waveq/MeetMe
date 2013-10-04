@@ -5,66 +5,66 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import com.waveq.meetme.config.DBManager;
-import com.waveq.meetme.entity.Zapis;
+import com.waveq.meetme.entity.Sign;
 import com.waveq.meetme.entity.Event;
 import com.waveq.meetme.entity.User;
 import javax.faces.event.ActionEvent;
 
-public class ZapisBean {
+public class SignBean {
 
-    private Zapis zapis = new Zapis();
+    private Sign sign = new Sign();
     private Event event = new Event();
     private User user = new User();
     private int eventID;
     private int userID;
     private boolean signed;
 
-    public List<Zapis> getLista() {
+    public List<Sign> getList() {
         EntityManager em = DBManager.getManager().createEntityManager();
-        List list = em.createQuery("from Zapis z WHERE z.event.id=:id").setParameter("id", this.getEventID()).getResultList();
+        List list = em.createQuery("from Sign s WHERE s.event.id=:id").setParameter("id", this.getEventID()).getResultList();
         em.close();
         return list;
     }
 
-    public String zapisz() {
+    public String signIn() {
         EntityManager em = DBManager.getManager().createEntityManager();
 
         this.event = em.find(Event.class, eventID);
         this.user = em.find(User.class, userID);
 
-        this.zapis.setUser(this.user);
-        this.zapis.setEvent(this.event);
+        this.sign.setUser(this.user);
+        this.sign.setEvent(this.event);
 
         if (!isSigned()) {
             em.getTransaction().begin();
-            zapis.setId(null);
-            em.persist(zapis);
+            sign.setId(null);
+            em.persist(sign);
             em.getTransaction().commit();
-            this.dodajInformacje("Zapisano");
+            this.addInformation("Zapisano");
             em.close();
-            this.zapis = new Zapis();
+            this.sign = new Sign();
             return null;
         } else {
 
             em.getTransaction().begin();
 
-            em.remove(em.merge(this.zapis));
-            this.zapis = new Zapis();
+            em.remove(em.merge(this.sign));
+            this.sign = new Sign();
             em.getTransaction().commit();
             em.close();
-            this.dodajInformacje("Wypisano");
+            this.addInformation("Wypisano");
             return null;
         }
     }
 
     public boolean isSigned() {
         EntityManager em = DBManager.getManager().createEntityManager();
-        List<Zapis> signs = em.createQuery("from Zapis z").getResultList();
+        List<Sign> signs = em.createQuery("from Sign s").getResultList();
 
         for (int i = 0; i < signs.size(); i++) {
             if (signs.get(i).getEvent().equals(this.event) && signs.get(i).getUser().equals(this.user)) {
                 em.close();
-                this.zapis = signs.get(i);
+                this.sign = signs.get(i);
                 signed = true;
                 return signed;
             }
@@ -74,25 +74,25 @@ public class ZapisBean {
         return signed;
     }
     
-    public String usun() {
+    public String delete() {
         EntityManager em = DBManager.getManager().createEntityManager();
         em.getTransaction().begin();
-        this.zapis = em.find(Zapis.class, zapis.getId());
-        em.remove(this.zapis);
-        this.zapis = new Zapis();
+        this.sign = em.find(Sign.class, sign.getId());
+        em.remove(this.sign);
+        this.sign = new Sign();
         em.getTransaction().commit();
         em.close();
-        this.dodajInformacje("Wypisano użytkownika");
+        this.addInformation("Wypisano użytkownika");
         return null;
     }
     
-    public void zapisListener(ActionEvent ae) {
-        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("zapisID").toString();
+    public void signListener(ActionEvent ae) {
+        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("signID").toString();
         int id = Integer.parseInt(ids);
-        this.zapis.setId(id);
+        this.sign.setId(id);
     }
 
-    public void dodajInformacje(String s) {
+    public void addInformation(String s) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
 
@@ -112,11 +112,11 @@ public class ZapisBean {
         this.eventID = eventID;
     }
 
-    public Zapis getZapis() {
-        return zapis;
+    public Sign getSign() {
+        return sign;
     }
 
-    public void setZapis(Zapis zapis) {
-        this.zapis = zapis;
+    public void setSign(Sign sign) {
+        this.sign = sign;
     }
 }

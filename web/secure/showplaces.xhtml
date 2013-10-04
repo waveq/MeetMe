@@ -10,26 +10,26 @@
         <h1>Lista miejsc</h1>
 
         <h:form>
-            <h:dataTable value="#{miejsceBean.lista}" var="miejsce">
+            <h:dataTable value="#{placeBean.list}" var="place">
                 <h:column>
                     <f:facet name="header">Nazwa</f:facet>
-                    <h:outputText value="#{miejsce.nazwa}"/>
+                    <h:outputText value="#{place.name}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header">Adres</f:facet>
-                    <h:outputText value="#{miejsce.adres}"/>
+                    <h:outputText value="#{place.address}"/>
                 </h:column>
                  <h:column>
                     <h:panelGroup id="isAdmin-update" rendered="#{userBean.admin}">
-                        <h:commandLink value="Edytuj" action="#{miejsceBean.zaladujDoEdycji}" actionListener="#{miejsceBean.miejsceListener}" >
-                            <f:param name="miejsceID" value="#{miejsce.id}" />
+                        <h:commandLink value="Edytuj" action="#{placeBean.loadToUpdate}" actionListener="#{placeBean.placeListener}" >
+                            <f:param name="placeID" value="#{place.id}" />
                         </h:commandLink> 
                     </h:panelGroup>
                 </h:column>
                 <h:column>
                     <h:panelGroup id="isAdmin-delete" rendered="#{userBean.admin}">
-                        <h:commandLink value="Usuń" action="#{miejsceBean.usun}" actionListener="#{miejsceBean.miejsceListener}" >
-                            <f:param name="miejsceID" value="#{miejsce.id}" />
+                        <h:commandLink value="Usuń" action="#{placeBean.delete}" actionListener="#{placeBean.placeListener}" >
+                            <f:param name="placeID" value="#{place.id}" />
                         </h:commandLink>
                     </h:panelGroup>
                 </h:column>

@@ -26,19 +26,17 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author Szym
+ * @author Szymon
  */
 @Entity
 @Table(name = "event")
 @NamedQueries({
     @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e"),
     @NamedQuery(name = "Event.findById", query = "SELECT e FROM Event e WHERE e.id = :id"),
-    @NamedQuery(name = "Event.findByNazwa", query = "SELECT e FROM Event e WHERE e.nazwa = :nazwa"),
-    @NamedQuery(name = "Event.findByCzasRozp", query = "SELECT e FROM Event e WHERE e.czasRozp = :czasRozp"),
-    @NamedQuery(name = "Event.findByCzasZakon", query = "SELECT e FROM Event e WHERE e.czasZakon = :czasZakon")})
+    @NamedQuery(name = "Event.findByName", query = "SELECT e FROM Event e WHERE e.name = :name"),
+    @NamedQuery(name = "Event.findByStartTime", query = "SELECT e FROM Event e WHERE e.startTime = :startTime"),
+    @NamedQuery(name = "Event.findByEndTime", query = "SELECT e FROM Event e WHERE e.endTime = :endTime")})
 public class Event implements Serializable {
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
-    private Set<Zapis> zapisSet;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,19 +44,21 @@ public class Event implements Serializable {
     @Column(name = "ID", nullable = false)
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "nazwa", nullable = false, length = 45)
-    private String nazwa;
+    @Column(name = "name", nullable = false, length = 45)
+    private String name;
     @Basic(optional = false)
-    @Column(name = "czas_rozp", nullable = false)
+    @Column(name = "start_time", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date czasRozp;
+    private Date startTime;
     @Basic(optional = false)
-    @Column(name = "czas_zakon", nullable = false)
+    @Column(name = "end_time", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date czasZakon;
-    @JoinColumn(name = "miejsce", referencedColumnName = "ID")
+    private Date endTime;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
+    private Set<Sign> signSet;
+    @JoinColumn(name = "place", referencedColumnName = "ID")
     @ManyToOne(fetch = FetchType.EAGER)
-    private Miejsce miejsce;
+    private Place place;
 
     public Event() {
     }
@@ -67,11 +67,11 @@ public class Event implements Serializable {
         this.id = id;
     }
 
-    public Event(Integer id, String nazwa, Date czasRozp, Date czasZakon) {
+    public Event(Integer id, String name, Date startTime, Date endTime) {
         this.id = id;
-        this.nazwa = nazwa;
-        this.czasRozp = czasRozp;
-        this.czasZakon = czasZakon;
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public Integer getId() {
@@ -82,36 +82,44 @@ public class Event implements Serializable {
         this.id = id;
     }
 
-    public String getNazwa() {
-        return nazwa;
+    public String getName() {
+        return name;
     }
 
-    public void setNazwa(String nazwa) {
-        this.nazwa = nazwa;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Date getCzasRozp() {
-        return czasRozp;
+    public Date getStartTime() {
+        return startTime;
     }
 
-    public void setCzasRozp(Date czasRozp) {
-        this.czasRozp = czasRozp;
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getCzasZakon() {
-        return czasZakon;
+    public Date getEndTime() {
+        return endTime;
     }
 
-    public void setCzasZakon(Date czasZakon) {
-        this.czasZakon = czasZakon;
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
     }
 
-    public Miejsce getMiejsce() {
-        return miejsce;
+    public Set<Sign> getSignSet() {
+        return signSet;
     }
 
-    public void setMiejsce(Miejsce miejsce) {
-        this.miejsce = miejsce;
+    public void setSignSet(Set<Sign> signSet) {
+        this.signSet = signSet;
+    }
+
+    public Place getPlace() {
+        return place;
+    }
+
+    public void setPlace(Place place) {
+        this.place = place;
     }
 
     @Override
@@ -137,14 +145,6 @@ public class Event implements Serializable {
     @Override
     public String toString() {
         return "com.waveq.meetme.entity.Event[ id=" + id + " ]";
-    }
-
-    public Set<Zapis> getZapisSet() {
-        return zapisSet;
-    }
-
-    public void setZapisSet(Set<Zapis> zapisSet) {
-        this.zapisSet = zapisSet;
     }
     
 }
