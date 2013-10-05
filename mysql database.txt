@@ -2,13 +2,13 @@ CREATE TABLE `user`
 (
 `ID` INT(11) NOT NULL AUTO_INCREMENT,
 
-`imie` VARCHAR(50) NOT NULL,
+`name` VARCHAR(50) NOT NULL,
 
-`nazwisko` VARCHAR(50) NOT NULL,
+`last_name` VARCHAR(50) NOT NULL,
 
 `login` VARCHAR(25) NOT NULL,
 
-`haslo` VARCHAR(25) NOT NULL,
+`password` VARCHAR(25) NOT NULL,
 
 PRIMARY KEY(`ID`)
 )
@@ -16,15 +16,15 @@ ENGINE=innoDB;
 
 
 
-CREATE TABLE `miejsce`
+CREATE TABLE `place`
  (
 `ID` INT(11) NOT NULL AUTO_INCREMENT,
 
 PRIMARY KEY(`ID`),
 
-`nazwa` VARCHAR(75) NOT NULL,
+`name` VARCHAR(75) NOT NULL,
 
-`adres` VARCHAR(50)
+`address` VARCHAR(50)
 )
 ENGINE=innoDB;
 
@@ -34,26 +34,26 @@ CREATE TABLE `event`
 (
 `ID` INT(11) NOT NULL AUTO_INCREMENT,
 
-`nazwa` VARCHAR(45) NOT NULL,
+`name` VARCHAR(45) NOT NULL,
 
-`czas_rozp` DATETIME NOT NULL,
+`start_time` DATETIME NOT NULL,
 
-`czas_zakon` DATETIME NOT NULL,
+`end_time` DATETIME NOT NULL,
 
-`miejsce` INT(10) NULL DEFAULT NULL,
+`place` INT(10) NULL DEFAULT NULL,
 
 PRIMARY KEY(`ID`),
 
-INDEX `miejsce_event` (`miejsce`),
+INDEX `place_event` (`place`),
 
-CONSTRAINT `miejsce_event` FOREIGN KEY(`miejsce`)
-REFERENCES `miejsce` (`ID`)
+CONSTRAINT `place_event` FOREIGN KEY(`place`)
+REFERENCES `place` (`ID`)
 )
 ENGINE=innoDB;
 
 
 
-CREATE TABLE `zapis` 
+CREATE TABLE `sign` 
 ( 
 `ID` INT(11) NOT NULL AUTO_INCREMENT,
 
@@ -63,13 +63,13 @@ CREATE TABLE `zapis`
 
 PRIMARY KEY(ID),
 
-INDEX `user_zapis` (`user`),
+INDEX `user_sign` (`user`),
 
-INDEX `event_zapis` (`event`),
+INDEX `event_sign` (`event`),
 
-CONSTRAINT `user_zapis` FOREIGN KEY(`user`)
+CONSTRAINT `user_sign` FOREIGN KEY(`user`)
 REFERENCES `user` (`ID`),
 
-CONSTRAINT `event_zapis` FOREIGN KEY(`event`)
+CONSTRAINT `event_sign` FOREIGN KEY(`event`)
 REFERENCES `event` (`ID`) ON UPDATE CASCADE ON DELETE CASCADE
 )ENGINE=innoDB;
