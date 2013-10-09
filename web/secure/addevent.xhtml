@@ -4,35 +4,38 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../mytemplate.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core">
-    
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
     <ui:define name="content">
-               <h1>Dodawanie wydarzenia</h1>
+        <h1>Dodawanie wydarzenia</h1>
         <h:form>
-            <table>
-                <td>Wybierz miejsce:</td>
-                <td>
-                    <h:selectOneMenu id="place" value="#{eventBean.event.place}" required="true">
-                            <f:converter converterId="placeConverter" />
-                            <f:selectItems
-                                value="#{placeBean.list}" var="place" itemValue="#{place}" 
-                                itemLabel="#{place.name}" />
-                     </h:selectOneMenu>
-                </td>
-                <tr>
-                    <td>Nazwa</td>
-                    <td>
-                        <h:inputText id="name" value="#{eventBean.event.name}" required="true">
+            <h:panelGrid columns="2" >
+                <h:outputLabel value="Wybierz miejsce:" />
+                <p:selectOneMenu id="place" value="#{eventBean.event.place}" required="true">
+                    <f:converter converterId="placeConverter" />
+                    <f:selectItems
+                        value="#{placeBean.list}" var="place" itemValue="#{place}" 
+                        itemLabel="#{place.name}" />
+                </p:selectOneMenu>
+                
+                <h:outputLabel value="Nazwa" />
+                <p:inputText id="name" value="#{eventBean.event.name}" required="true">
                     <f:validator id="validator" validatorId="eventValidator" />
-                        </h:inputText>
-                    </td>
-                </tr>
-                <tr><td>Czas rozpoczęcia (w formacie RRRR-MM-DD GG:MM:SS):</td><td><h:inputText id="startTime" value="#{eventBean.event.startTime}" required="true"  >
-                            <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> </h:inputText></td></tr>
-                <tr><td>Czas zakończenia (w formacie RRRR-MM-DD GG:MM:SS):</td><td><h:inputText id="endTime" value="#{eventBean.event.endTime}" required="true" >
-                            <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> </h:inputText></td></tr>
-                <tr><td></td><td><h:commandButton action="#{eventBean.create}" value="Dodaj" /></td></tr>
-            </table>
+                </p:inputText>
+                
+                <h:outputLabel value="Czas rozpoczęcia:" />
+                <p:calendar id="startTime" value="#{eventBean.event.startTime}" pattern="yyyy-mm-dd HH:mm:ss" effect="explode" showOn="button" navigator="true">  
+                    <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> 
+                </p:calendar>
+                
+                <h:outputLabel value="Czas zakończenia:" />
+                <p:calendar id="endTime" value="#{eventBean.event.endTime}" pattern="yyyy-mm-dd HH:mm:ss" effect="explode" showOn="button" navigator="true">  
+                    <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> 
+                </p:calendar>
+            </h:panelGrid>
+            <p:commandButton action="#{eventBean.create}" value="Dodaj" update="@form" />
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
         </h:form>
     </ui:define>
 </ui:composition>

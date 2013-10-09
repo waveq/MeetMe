@@ -4,33 +4,40 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./mytemplate.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"     
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="content">
-        <h:panelGroup id="loggedOut-content" rendered="#{not userBean.loggedIn}">
-            <h1>Zaloguj</h1>
-            <h:form id="login-form">
-                <h:outputText value="Login:"/>
-                <h:inputText value="#{userBean.user.login}" id="username"/>
-                <br/>
-                <h:outputText value="Hasło:"/>
-                <h:inputSecret value="#{userBean.user.password}" id="password"/>
-                <br/>
-                <h:commandButton id="button" value="Login" action="#{userBean.doLogin}" />
-                <br/>
-                <h:messages />
-            </h:form>
-            <h:form id="create-acc">
-                <h:commandLink action="#{navigationBean.redirectToCreateAcc}" value="Stwórz konto"/>
-            </h:form>
 
-        </h:panelGroup>
-        <h:panelGroup id="loggedIn-Content" rendered="#{userBean.loggedIn}">
-            <h1>Witaj</h1>
-            <table>
-                <tr><td>Imie:</td><td>#{userBean.user.name}</td></tr>
-                <tr><td>Nazwisko:</td><td>#{userBean.user.lastName}</td></tr>
-            </table>
+    <ui:define name="content" >   
+            
+        <h:panelGroup id="content-panel" >
+                <h:panelGroup rendered="#{not userBean.loggedIn}" >
+                    <h1>Zaloguj</h1>
+                    <h:form id="login-form">
+                        <h:panelGrid columns="2" id="login" >
+                            <h:outputLabel value="Login:"/>
+                            <p:inputText value="#{userBean.user.login}" id="username"/>
+                            <h:outputLabel value="Hasło:"/>
+                            <p:password value="#{userBean.user.password}" id="password"/>
+                        </h:panelGrid>
+                        <p:commandButton id="button" value="Login" action="#{userBean.doLogin}" update=":content-panel,#{leftMenuu}" />
+                    </h:form>
+                    
+                    <h:form id="create-acc">
+                        <p:commandLink action="#{navigationBean.redirectToCreateAcc}" value="Stwórz konto"/>
+                    </h:form>
+                </h:panelGroup>
+
+                <h:panelGroup id="loggedIn-Content" rendered="#{userBean.loggedIn}">
+                    <h1>Witaj</h1>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="Imie:" />
+                        <h:outputLabel value="#{userBean.user.name}"/>
+                        <h:outputLabel value="Nazwisko:" />
+                        <h:outputLabel value="#{userBean.user.lastName}" />
+                    </h:panelGrid>
+                </h:panelGroup>
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
         </h:panelGroup>
     </ui:define>
 </ui:composition>

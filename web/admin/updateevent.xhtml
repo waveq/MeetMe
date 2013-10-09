@@ -4,29 +4,31 @@
                 template="./../mytemplate.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
         <h1>Edytuj wydarzenie</h1>
         <h:form>
-            <table>
-                <tr>
-                    <td>Miejsce</td>
-                    <td>
-                        <h:selectOneMenu id="place" value="#{eventBean.event.place}" required="true">
-                            <f:converter converterId="placeConverter" />
-                            <f:selectItems 
-                                value="#{placeBean.list}" var="place" itemValue="#{place}"
-                                itemLabel="#{place.name}" />
-                        </h:selectOneMenu>
-                    </td>
-                </tr>
-                <tr><td>Nazwa</td><td><h:inputText id ="name" value="#{eventBean.event.name}" required="true"/></td></tr>
-                <tr><td>Czas rozpoczęcia (w formacie RRRR-MM-DD GG:MM:SS):</td><td><h:inputText id="startTime" value="#{eventBean.event.startTime}" required="true"  >
-                            <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> </h:inputText></td></tr>
-                  <tr><td>Czas zakończenia (w formacie RRRR-MM-DD GG:MM:SS):</td><td><h:inputText id="endTime" value="#{eventBean.event.endTime}" required="true" >
-                            <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> </h:inputText></td></tr>
-                <tr><td></td><td><h:commandButton action="#{eventBean.update}" value="Edytuj" /></td></tr>
-            </table>
+            <h:panelGrid columns="2" >
+                <p:outputLabel value="Miejsce" />
+                <p:selectOneMenu id="place" value="#{eventBean.event.place}" required="true">
+                    <f:converter converterId="placeConverter" />
+                    <f:selectItems 
+                        value="#{placeBean.list}" var="place" itemValue="#{place}"
+                        itemLabel="#{place.name}" />
+                </p:selectOneMenu>
+                <p:outputLabel value="Nazwa" />
+                <p:inputText id ="name" value="#{eventBean.event.name}" required="true" />
+                <p:outputLabel value="Czas rozpoczęcia (w formacie RRRR-MM-DD GG:MM:SS):" />
+                <p:inputMask id="startTime" value="#{eventBean.event.startTime}" required="true" mask="9999-99-99 99:99:99"  >
+                    <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> 
+                </p:inputMask>
+                <h:outputLabel value="Czas zakończenia (w formacie RRRR-MM-DD GG:MM:SS):" />
+                <p:inputMask id="endTime" value="#{eventBean.event.endTime}" required="true" mask="9999-99-99 99:99:99" >
+                    <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> 
+                </p:inputMask>
+            </h:panelGrid>
+            <p:commandButton action="#{eventBean.update}" value="Edytuj" ajax="false"/>
         </h:form>
     </ui:define>
 

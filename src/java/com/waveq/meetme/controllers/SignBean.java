@@ -40,7 +40,7 @@ public class SignBean {
             sign.setId(null);
             em.persist(sign);
             em.getTransaction().commit();
-            this.addInformation("Zapisano");
+            this.addGrowl("Sukces!", "Zapisano użytkownika!");
             em.close();
             this.sign = new Sign();
             return null;
@@ -52,7 +52,7 @@ public class SignBean {
             this.sign = new Sign();
             em.getTransaction().commit();
             em.close();
-            this.addInformation("Wypisano");
+            this.addGrowl("Sukces!", "Wypisano użytkownika!");
             return null;
         }
     }
@@ -60,7 +60,6 @@ public class SignBean {
     public boolean isSigned() {
         EntityManager em = DBManager.getManager().createEntityManager();
         List<Sign> signs = em.createQuery("from Sign s").getResultList();
-
         for (int i = 0; i < signs.size(); i++) {
             if (signs.get(i).getEvent().equals(this.event) && signs.get(i).getUser().equals(this.user)) {
                 em.close();
@@ -82,7 +81,7 @@ public class SignBean {
         this.sign = new Sign();
         em.getTransaction().commit();
         em.close();
-        this.addInformation("Wypisano użytkownika");
+        this.addGrowl("Sukces!", "Wypisano użytkownika.");
         return null;
     }
     
@@ -96,6 +95,13 @@ public class SignBean {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
 
+    public void addGrowl(String title, String content) {
+         FacesContext context = FacesContext.getCurrentInstance();  
+          
+        context.addMessage(null, new FacesMessage(title, content));  
+    } 
+    
+    
     public int getUserID() {
         return userID;
     }

@@ -4,21 +4,25 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./../mytemplate.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core">
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
     
     <ui:define name="content">
                <h1>Dodawanie miejsca</h1>
+                
         <h:form>
-            <table>
-                <tr><td>Nazwa</td>
-                    <td>
-                        <h:inputText id="name" value="#{placeBean.place.name}" required="true" >
-                        <f:validator id="validator"  validatorId="placeValidator" />
-                        </h:inputText>
-                    </td></tr>
-                <tr><td>Adres</td><td><h:inputText id="address" value="#{placeBean.place.address}" required="true" /></td></tr>
-                <tr><td></td><td><h:commandButton action="#{placeBean.create}" value="Dodaj" /></td></tr>
-            </table>
+            
+            <h:panelGrid id="addPlace" columns="2" >
+                <h:outputLabel value="Nazwa" />
+                <p:inputText id="name" value="#{placeBean.place.name}" required="true" >
+                    <f:validator id="validator"  validatorId="placeValidator" />
+                </p:inputText>
+                <h:outputLabel value="Adres" />
+                <p:inputText id="address" value="#{placeBean.place.address}" required="true" />
+                
+            </h:panelGrid>
+            <p:commandButton action="#{placeBean.create}" value="Dodaj" update="@form" />
         </h:form>
+               <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
     </ui:define>
 </ui:composition>

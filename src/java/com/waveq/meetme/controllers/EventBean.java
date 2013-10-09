@@ -11,15 +11,7 @@ import com.waveq.meetme.entity.Event;
 public class EventBean {
 
     private Event event = new Event();
-
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
+    
     public List<Event> getList() {
         EntityManager em = DBManager.getManager().createEntityManager();
         List list = em.createNamedQuery("Event.findAll").getResultList();
@@ -86,5 +78,13 @@ public class EventBean {
         this.event = em.find(Event.class, event.getId());
         em.close();
         return "updateevent";
+    }
+     
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 }

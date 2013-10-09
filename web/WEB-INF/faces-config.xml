@@ -181,7 +181,7 @@
             <redirect />
         </navigation-case>
         <navigation-case>
-            <from-action>#{eventBean.loadToUpdate}</from-action>
+            <from-action>#{eventBean.loadToUpdate()}</from-action>
             <from-outcome>updateevent</from-outcome>
             <to-view-id>/admin/updateevent.xhtml</to-view-id>
             <redirect />

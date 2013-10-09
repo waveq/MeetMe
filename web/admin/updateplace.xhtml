@@ -4,15 +4,18 @@
                 template="./../mytemplate.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns="http://www.w3.org/1999/xhtml">
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
         <h1>Edytuj miejsce</h1>
         <h:form>
-            <table>
-                <tr><td>Nazwa</td><td><h:inputText id="name" value="#{placeBean.place.name}" required="true"/></td></tr>
-                <tr><td>Adres</td><td><h:inputText id="adres" value="#{placeBean.place.address}" required="true" /></td></tr>
-                <tr><td></td><td><h:commandButton action="#{placeBean.update}" value="Edytuj" /></td></tr>
-            </table>
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Nazwa" />
+                <p:inputText id="name" value="#{placeBean.place.name}" required="true"/>
+                <p:outputLabel value="Adres" />
+                <p:inputText id="adres" value="#{placeBean.place.address}" required="true" />
+            </h:panelGrid>
+            <p:commandButton action="#{placeBean.update}" value="Edytuj" ajax="false"/>
         </h:form>
     </ui:define>
 

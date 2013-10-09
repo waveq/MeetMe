@@ -4,37 +4,28 @@
                 template="./../mytemplate.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
          <h:form>
-            <h:dataTable value="#{userBean.list}" var="user">
-                <h:column>
-                    <f:facet name="header">ID</f:facet>
-                    <h:outputText value="#{user.id}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Imie</f:facet>
+            <p:dataTable value="#{userBean.list}" var="user">
+                <p:column headerText="ID">
+                    <p:outputLabel value="#{user.id}"/>
+                </p:column>
+                <p:column headerText="Imię">
                     <h:outputText value="#{user.name}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Nazwisko</f:facet>
+                </p:column>
+                <p:column headerText="Nazwisko">
                     <h:outputText value="#{user.lastName}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Login</f:facet>
+                </p:column>
+                <p:column headerText="Login">
                     <h:outputText value="#{user.login}"/>
-                </h:column>
-                <h:column>
-                    <f:facet name="header">Hasło</f:facet>
+                </p:column>
+                <p:column headerText="Hasło">
                     <h:outputText value="#{user.password}"/>
-                </h:column>
-      <!--          <h:column>
-                    <h:commandLink value="Usuń" action="#{userBean.delete}" actionListener="#{userBean.userListener}" >
-                        <f:param name="userID" value="#{user.id}" />
-                    </h:commandLink>                
-                </h:column> -->
-            </h:dataTable>
+                </p:column>
+            </p:dataTable>
         </h:form>
     </ui:define>
 

@@ -22,16 +22,16 @@ public class LoginValidator implements Validator {
     @Override
     public void validate(FacesContext ctx, UIComponent component, Object value){
         if(!(value instanceof String))
-            throw new ValidatorException(new FacesMessage("Przekazana wartosc nie jest lancuchem znakow!"));
+            throw new ValidatorException(new FacesMessage("Przekazana wartosc nie jest lancuchem znakow!", ""));
         String login = ((String)value).toLowerCase();
         if(login.contains(" "))
-            throw new ValidatorException(new FacesMessage("Login nie może zawierać spacji!"));
+            throw new ValidatorException(new FacesMessage("Login nie może zawierać spacji!", ""));
         
         EntityManager em = DBManager.getManager().createEntityManager();
         List<User> list = em.createNamedQuery("User.findByLogin").setParameter("login", login).getResultList();
         em.close();
         if(list.size()>0) 
-            throw new ValidatorException(new FacesMessage("Login jest już zajęty."));
+            throw new ValidatorException(new FacesMessage("Login jest już zajęty.", ""));
     }
     
 }

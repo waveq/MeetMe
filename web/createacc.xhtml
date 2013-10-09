@@ -4,26 +4,38 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./mytemplate.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core">
-    
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
     <ui:define name="content">
-               <h1>Stwórz konto</h1>
+        <h1>Stwórz konto</h1>
+
         <h:form>
-         
-            <table>             
-                <tr><td>Imie</td><td><h:inputText id="name" value="#{userBean.user.name}" required="true" /></td></tr>
-                <tr><td>Nazwisko</td><td><h:inputText id="lastName" value="#{userBean.user.lastName}" required="true" /></td></tr>
-                <tr><td>Login</td><td>
-                        <h:inputText id="login"  value="#{userBean.user.login}" required="true">
-                        <f:validateLength minimum="4" maximum="20" />
-                        <f:validator id="validator" validatorId="loginValidator" />
-                        </h:inputText>
-                    </td></tr>
-                <tr><td>Hasło</td><td><h:inputSecret id="password" value="#{userBean.user.password}" required="true" /></td></tr>
-                <tr><td></td><td><h:commandButton action="#{userBean.create}" value="Dodaj" /></td></tr>
-            </table>
-            
+
+
+            <h:panelGrid columns="2" id="create-acc">   
+                <h:outputLabel value="Imię:" />
+                <p:inputText id="name" value="#{userBean.user.name}" required="true" />
+
+                <h:outputLabel value="Nazwisko:" />
+                <p:inputText id="lastName" value="#{userBean.user.lastName}" required="true" />
+
+                <h:outputLabel value="Login:" />
+                <p:inputText id="login"  value="#{userBean.user.login}" required="true">
+                    <f:validateLength minimum="4" maximum="20" />
+                    <f:validator id="validator" validatorId="loginValidator" />
+                </p:inputText>
+
+                <h:outputLabel for="pwd1" value="Hasło:" />  
+                <p:password id="pwd1" value="#{userBean.user.password}" match="pwd2" label="Password 1" required="true"/>  
+
+                <h:outputLabel for="pwd2" value="Powtórz hasło:" />  
+                <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" required="true"/>  
+            </h:panelGrid>  
+            <p:commandButton id="addButton" update="create-acc" value="Dodaj" ajax="false" action="#{userBean.create}" />  
         </h:form>
-               
+        <p:messages id="messages" showDetail="true" autoUpdate="true"/>  
+
+
     </ui:define>
 </ui:composition>

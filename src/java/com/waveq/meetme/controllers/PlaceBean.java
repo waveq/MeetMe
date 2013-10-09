@@ -52,7 +52,7 @@ public class PlaceBean {
             this.addInformation("Usunieto miejsce");
         }catch(RollbackException r) {
             FacesMessage msg = new FacesMessage("Miejsce, które chcesz usunąć prawdopodobnie jest wykorzystywane w jednym z wydarzeń. "
-                    + "Spróbuj najpierw usunąć to wydarzenie.", "ERROR MSG");
+                    + "Spróbuj najpierw usunąć to wydarzenie.", "");
             msg.setSeverity(FacesMessage.SEVERITY_ERROR);
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }

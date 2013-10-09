@@ -2,7 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
@@ -12,38 +15,43 @@
     </h:head>
 
     <h:body>
+        <ui:param name="leftMenuu" value=":both-menus" />
 
 
         <div id="top">
             <h:form>
-            <h:commandLink action="#{navigationBean.redirectToIndex}">    
-                <h:graphicImage library="images" name="logo.png" width="200" height="50"/>
-            </h:commandLink>
+                <p:commandLink action="#{navigationBean.redirectToIndex}" >    
+                    <h:graphicImage library="images" name="logo.png" width="200" height="50"/>
+                </p:commandLink>
             </h:form>
         </div>
         <div>
             <div id="left">
-                <h:panelGroup id="loggedOut-leftMenu" rendered="#{not userBean.loggedIn}">
-
-                <ul>
-                    <li>Zaloguj sie</li>
-                </ul>
-                </h:panelGroup>
-                 <h:panelGroup id="loggedIn-leftMenu" rendered="#{userBean.loggedIn}">
-                <ul>
-                    <h:form>
-                    <li><h:commandLink action="#{navigationBean.redirectToAddPlace}" value="Dodaj miejsce" /></li>
-                    <li><h:commandLink action="#{navigationBean.redirectToShowPlaces}" value="Pokaż miejsca" /></li>
-                    <li><h:commandLink action="#{navigationBean.redirectToAddEvent}" value="Dodaj wydarzenie" /></li>
-                    <li><h:commandLink action="#{navigationBean.redirectToShowEvents}" value="Pokaż wydarzenia" /></li>
-                    <h:panelGroup id="isAdmin" rendered="#{userBean.admin}">
-                        <li><h:commandLink action="#{navigationBean.redirectToShowUsers}" value="Pokaż użytkowników" /></li>
+                <h:panelGroup id="both-menus" >
+                    <h:panelGroup id="loggedOut-leftMenu" rendered="#{not userBean.loggedIn}">
+                        <p:outputLabel value="Zaloguj sie" />
                     </h:panelGroup>
-                    <li><h:commandLink action="#{userBean.doLogout}" value="Wyloguj" /></li>
-                    </h:form>
-                </ul>
-                 </h:panelGroup>
-                </div>
+                    <h:panelGroup id="loggedIn-leftMenu" rendered="#{userBean.loggedIn}" >
+                        <h:form>
+                            <p:panelMenu>
+                                <p:submenu label="Miejsce" >  
+                                    <p:menuitem value="Dodaj" action="#{navigationBean.redirectToAddPlace}" />  
+                                    <p:menuitem value="Pokaż" action="#{navigationBean.redirectToShowPlaces}" /> 
+                                </p:submenu>
+                                <p:submenu label="Wydarzenie" >  
+                                    <p:menuitem value="Dodaj" action="#{navigationBean.redirectToAddEvent}" />  
+                                    <p:menuitem value="Pokaż" action="#{navigationBean.redirectToShowEvents}" /> 
+                                </p:submenu>
+                            </p:panelMenu>
+                            <h:panelGroup id="loggedOut-leftMenu" rendered="#{userBean.admin}">
+                                <p:commandButton value="Pokaż użytkowników" action="#{navigationBean.redirectToShowUsers}" style="width: 150px" />
+                            </h:panelGroup>
+                            <p:commandButton value="Wyloguj" action="#{userBean.doLogout}" style="width: 150px" />
+                        </h:form>
+                    </h:panelGroup>
+                </h:panelGroup>
+
+            </div>
             <div id="content" class="left_content">
                 <ui:insert name="content">Content</ui:insert>
             </div>

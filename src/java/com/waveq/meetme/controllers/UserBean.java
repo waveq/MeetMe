@@ -93,7 +93,7 @@ public class UserBean {
 
         // Set login ERROR
         em.close();
-        FacesMessage msg = new FacesMessage("Błąd logowania!", "ERROR MSG");
+        FacesMessage msg = new FacesMessage("Błąd logowania!", "");
         msg.setSeverity(FacesMessage.SEVERITY_ERROR);
         FacesContext.getCurrentInstance().addMessage(null, msg);
         // To to index page

@@ -34,12 +34,12 @@ public class Sign implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID", nullable = false)
     private Integer id;
-    @JoinColumn(name = "event", referencedColumnName = "ID", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Event event;
     @JoinColumn(name = "user", referencedColumnName = "ID", nullable = false)
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private User user;
+    @JoinColumn(name = "event", referencedColumnName = "ID", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Event event;
 
     public Sign() {
     }
@@ -56,20 +56,20 @@ public class Sign implements Serializable {
         this.id = id;
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     @Override

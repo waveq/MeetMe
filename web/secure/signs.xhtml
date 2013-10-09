@@ -4,24 +4,35 @@
                 template="./../mytemplate.xhtml"
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:h="http://java.sun.com/jsf/html">
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
     <ui:define name="content">
-
         <h1>Zapisy</h1>
-        <table>
-            <tr><td>Nazwa:</td><td><h:outputText value="#{eventBean.event.name}" /></td></tr>
-            <tr><td>Miejsce:</td><td><h:outputText value="#{eventBean.event.place.name}" /></td></tr>
-            <tr><td>Adres:</td><td><h:outputText value="#{eventBean.event.place.address}" /></td></tr>
-            <tr><td>Czas rozpoczęcia:</td><td><h:outputText value="#{eventBean.event.startTime}" >
-                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-                    </h:outputText></td></tr>
-            <tr><td>Czas zakończenia:</td><td><h:outputText value="#{eventBean.event.endTime}" >
-                        <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
-                    </h:outputText></td></tr>
-        </table>
+            <p:panelGrid columns="2" >
+                <h:outputLabel value="Nazwa:" />
+                <h:outputLabel value="#{eventBean.event.name}" />
 
-        <h1>Na wydarzenie przyjdą:</h1>    
+                <h:outputLabel value="Miejsce:" />
+                <h:outputLabel value="#{eventBean.event.place.name}" />
+
+                <h:outputLabel value="Adres:" />
+                <h:outputLabel value="#{eventBean.event.place.address}" />
+
+
+                <h:outputLabel value="Czas rozpoczęcia:" />
+                <h:outputLabel value="#{eventBean.event.startTime}" >
+                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                </h:outputLabel>
+
+                <h:outputLabel value="Czas zakończenia:" />
+                <h:outputLabel value="#{eventBean.event.endTime}" >
+                    <f:convertDateTime pattern="dd.MM.yyyy HH:mm" />
+                </h:outputLabel>
+            </p:panelGrid>
+
+        <p:panel header="Na wydarzenie przyjdą:" toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel5" >    
         <h:form>
+            <p:growl id="growl" showDetail="true" sticky="true" />  
             <h:dataTable value="#{signBean.list}" var="sign">
                 <h:column>
                     <f:facet name="header">Imie</f:facet>
@@ -33,14 +44,15 @@
                 </h:column>
                 <h:column>
                     <h:panelGroup id="isAdmin" rendered="#{userBean.admin}">
-                       <h:commandLink value="Usuń" action="#{signBean.delete}" actionListener="#{signBean.signListener}" >
-                           <f:param name="signID" value="#{sign.id}" />
-                       </h:commandLink>
+                        <p:commandLink value="Usuń" action="#{signBean.delete}" actionListener="#{signBean.signListener}" update="@form" >
+                            <f:param name="signID" value="#{sign.id}" />
+                        </p:commandLink>
                     </h:panelGroup>
                 </h:column>
             </h:dataTable>
-            <h:commandButton value="#{signBean.signed==false? 'Zapisz się':'Wypisz się'}" action="#{signBean.signIn}" />
+            <p:commandButton value="#{signBean.signed==false? 'Zapisz się':'Wypisz się'}" action="#{signBean.signIn}" update="@form" />
         </h:form>
+        </p:panel>
 
     </ui:define>
 </ui:composition>
