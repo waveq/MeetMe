@@ -21,7 +21,8 @@ public class SignBean {
 
     public List<Sign> getList() {
         EntityManager em = DBManager.getManager().createEntityManager();
-        List list = em.createQuery("from Sign s WHERE s.event.id=:id").setParameter("id", this.getEventID()).getResultList();
+        List list = em.createQuery("from Sign s WHERE s.event.id=:id")
+                .setParameter("id", this.getEventID()).getResultList();
         em.close();
         return list;
     }
@@ -61,7 +62,8 @@ public class SignBean {
         EntityManager em = DBManager.getManager().createEntityManager();
         List<Sign> signs = em.createQuery("from Sign s").getResultList();
         for (int i = 0; i < signs.size(); i++) {
-            if (signs.get(i).getEvent().equals(this.event) && signs.get(i).getUser().equals(this.user)) {
+            if (signs.get(i).getEvent().equals(this.event) 
+                    && signs.get(i).getUser().equals(this.user)) {
                 em.close();
                 this.sign = signs.get(i);
                 signed = true;
@@ -86,13 +88,15 @@ public class SignBean {
     }
     
     public void signListener(ActionEvent ae) {
-        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("signID").toString();
+        String ids = FacesContext.getCurrentInstance().getExternalContext()
+                .getRequestParameterMap().get("signID").toString();
         int id = Integer.parseInt(ids);
         this.sign.setId(id);
     }
 
     public void addInformation(String s) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
 
     public void addGrowl(String title, String content) {

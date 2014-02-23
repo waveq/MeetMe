@@ -12,7 +12,8 @@
         <h:form>
             <h:panelGrid columns="2" >
                 <h:outputLabel value="Wybierz miejsce:" />
-                <p:selectOneMenu id="place" value="#{eventBean.event.place}" required="true">
+                <p:selectOneMenu id="place" value="#{eventBean.event.place}"
+                                 required="true">
                     <f:converter converterId="placeConverter" />
                     <f:selectItems
                         value="#{placeBean.list}" var="place" itemValue="#{place}" 
@@ -20,22 +21,27 @@
                 </p:selectOneMenu>
                 
                 <h:outputLabel value="Nazwa" />
-                <p:inputText id="name" value="#{eventBean.event.name}" required="true">
+                <p:inputText id="name" value="#{eventBean.event.name}" 
+                             required="true">
                     <f:validator id="validator" validatorId="eventValidator" />
                 </p:inputText>
                 
                 <h:outputLabel value="Czas rozpoczęcia:" />
-                <p:calendar id="startTime" value="#{eventBean.event.startTime}" pattern="yyyy-mm-dd HH:mm:ss" effect="explode" showOn="button" navigator="true">  
+                <p:calendar id="startTime" value="#{eventBean.event.startTime}" 
+                            pattern="yyyy-mm-dd HH:mm:ss" effect="explode" 
+                            showOn="button" navigator="true">  
                     <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> 
                 </p:calendar>
                 
                 <h:outputLabel value="Czas zakończenia:" />
-                <p:calendar id="endTime" value="#{eventBean.event.endTime}" pattern="yyyy-mm-dd HH:mm:ss" effect="explode" showOn="button" navigator="true">  
+                <p:calendar id="endTime" value="#{eventBean.event.endTime}" 
+                            pattern="yyyy-mm-dd HH:mm:ss" effect="explode" 
+                            showOn="button" navigator="true">  
                     <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> 
                 </p:calendar>
             </h:panelGrid>
             <p:commandButton action="#{eventBean.create}" value="Dodaj" update="@form" />
-            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+            <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
         </h:form>
     </ui:define>
 </ui:composition>

@@ -18,6 +18,10 @@ public class EventBean {
         em.close();
         return list;
     }
+    
+    public void clearBean() {
+         this.event = new Event();
+     }
 
     public String create() {
         EntityManager em = DBManager.getManager().createEntityManager();
@@ -46,13 +50,15 @@ public class EventBean {
    
 
     public void eventListener(ActionEvent ae) {
-        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("eventID").toString();
+        String ids = FacesContext.getCurrentInstance().getExternalContext()
+                .getRequestParameterMap().get("eventID").toString();
         int id = Integer.parseInt(ids);
         this.event.setId(id);
     }
 
     public void addInformation(String s) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
     
      public String update() {

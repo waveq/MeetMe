@@ -11,24 +11,31 @@
         <h:form>
             <h:panelGrid columns="2" >
                 <p:outputLabel value="Miejsce" />
-                <p:selectOneMenu id="place" value="#{eventBean.event.place}" required="true">
+                <p:selectOneMenu id="place" value="#{eventBean.event.place}" 
+                                 required="true">
                     <f:converter converterId="placeConverter" />
                     <f:selectItems 
                         value="#{placeBean.list}" var="place" itemValue="#{place}"
                         itemLabel="#{place.name}" />
                 </p:selectOneMenu>
                 <p:outputLabel value="Nazwa" />
-                <p:inputText id ="name" value="#{eventBean.event.name}" required="true" />
+                <p:inputText id ="name" value="#{eventBean.event.name}" 
+                             required="true" >
+                        <f:validator id="validator" validatorId="eventValidator" />
+                </p:inputText>
                 <p:outputLabel value="Czas rozpoczęcia (w formacie RRRR-MM-DD GG:MM:SS):" />
-                <p:inputMask id="startTime" value="#{eventBean.event.startTime}" required="true" mask="9999-99-99 99:99:99"  >
+                <p:inputMask id="startTime" value="#{eventBean.event.startTime}" 
+                             required="true" mask="9999-99-99 99:99:99"  >
                     <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> 
                 </p:inputMask>
                 <h:outputLabel value="Czas zakończenia (w formacie RRRR-MM-DD GG:MM:SS):" />
-                <p:inputMask id="endTime" value="#{eventBean.event.endTime}" required="true" mask="9999-99-99 99:99:99" >
+                <p:inputMask id="endTime" value="#{eventBean.event.endTime}" 
+                             required="true" mask="9999-99-99 99:99:99" >
                     <f:convertDateTime timeZone="Europe/Warsaw" type="both" /> 
                 </p:inputMask>
             </h:panelGrid>
             <p:commandButton action="#{eventBean.update}" value="Edytuj" ajax="false"/>
+            <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
         </h:form>
     </ui:define>
 

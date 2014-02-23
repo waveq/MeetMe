@@ -14,15 +14,19 @@
             
             <h:panelGrid id="addPlace" columns="2" >
                 <h:outputLabel value="Nazwa" />
-                <p:inputText id="name" value="#{placeBean.place.name}" required="true" >
+                <p:inputText id="name" value="#{placeBean.place.name}" 
+                             required="true" >
                     <f:validator id="validator"  validatorId="placeValidator" />
                 </p:inputText>
                 <h:outputLabel value="Adres" />
-                <p:inputText id="address" value="#{placeBean.place.address}" required="true" />
+                <p:inputText id="address" value="#{placeBean.place.address}" 
+                             required="true" />
                 
             </h:panelGrid>
-            <p:commandButton action="#{placeBean.create}" value="Dodaj" update="@form" />
+            <p:commandButton action="#{placeBean.create}" value="Dodaj" 
+                             update="@form" />
         </h:form>
-               <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+               <p:messages id="messages" showDetail="false" autoUpdate="true" 
+                           closable="true" /> 
     </ui:define>
 </ui:composition>

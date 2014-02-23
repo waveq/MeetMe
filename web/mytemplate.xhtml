@@ -21,32 +21,44 @@
         <div id="top">
             <h:form>
                 <p:commandLink action="#{navigationBean.redirectToIndex}" >    
-                    <h:graphicImage library="images" name="logo.png" width="200" height="50"/>
+                    <h:graphicImage library="images" name="logo.png" width="200"
+                                    height="50"/>
                 </p:commandLink>
             </h:form>
         </div>
         <div>
             <div id="left">
                 <h:panelGroup id="both-menus" >
-                    <h:panelGroup id="loggedOut-leftMenu" rendered="#{not userBean.loggedIn}">
+                    <h:panelGroup id="loggedOut-leftMenu" 
+                                  rendered="#{not userBean.loggedIn}">
                         <p:outputLabel value="Zaloguj sie" />
                     </h:panelGroup>
-                    <h:panelGroup id="loggedIn-leftMenu" rendered="#{userBean.loggedIn}" >
+                    <h:panelGroup id="loggedIn-leftMenu" 
+                                  rendered="#{userBean.loggedIn}" >
                         <h:form>
                             <p:panelMenu>
                                 <p:submenu label="Miejsce" >  
-                                    <p:menuitem value="Dodaj" action="#{navigationBean.redirectToAddPlace}" />  
-                                    <p:menuitem value="Pokaż" action="#{navigationBean.redirectToShowPlaces}" /> 
+                                    <p:menuitem value="Dodaj" 
+                                                action="#{navigationBean.redirectToAddPlace}" />  
+                                    <p:menuitem value="Pokaż" 
+                                                action="#{navigationBean.redirectToShowPlaces}" /> 
                                 </p:submenu>
                                 <p:submenu label="Wydarzenie" >  
-                                    <p:menuitem value="Dodaj" action="#{navigationBean.redirectToAddEvent}" />  
-                                    <p:menuitem value="Pokaż" action="#{navigationBean.redirectToShowEvents}" /> 
+                                    <p:menuitem value="Dodaj" 
+                                                action="#{navigationBean.redirectToAddEvent}" 
+                                                actionListener="#{eventBean.clearBean}" />  
+                                    <p:menuitem value="Pokaż" 
+                                                action="#{navigationBean.redirectToShowEvents}" /> 
                                 </p:submenu>
                             </p:panelMenu>
-                            <h:panelGroup id="loggedOut-leftMenu" rendered="#{userBean.admin}">
-                                <p:commandButton value="Pokaż użytkowników" action="#{navigationBean.redirectToShowUsers}" style="width: 150px" />
+                            <h:panelGroup id="loggedOut-leftMenu" 
+                                          rendered="#{userBean.admin}">
+                                <p:commandButton value="Pokaż użytkowników" 
+                                                 action="#{navigationBean.redirectToShowUsers}" 
+                                                 style="width: 150px" />
                             </h:panelGroup>
-                            <p:commandButton value="Wyloguj" action="#{userBean.doLogout}" style="width: 150px" />
+                            <p:commandButton value="Wyloguj" action="#{userBean.doLogout}"
+                                             style="width: 150px" />
                         </h:form>
                     </h:panelGroup>
                 </h:panelGroup>

@@ -7,8 +7,8 @@
     <managed-bean>
         <managed-bean-name>placeBean</managed-bean-name>
         <managed-bean-class>com.waveq.meetme.controllers.PlaceBean</managed-bean-class>
-    
-        <managed-bean-scope>session</managed-bean-scope></managed-bean>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
     <managed-bean>
         <managed-bean-name>eventBean</managed-bean-name>
         <managed-bean-class>com.waveq.meetme.controllers.EventBean</managed-bean-class>

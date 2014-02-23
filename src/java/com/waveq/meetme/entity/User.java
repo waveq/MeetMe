@@ -18,7 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 /**
  *
  * @author Szymon
@@ -50,6 +49,7 @@ public class User implements Serializable {
     private String login;
     @Basic(optional = false)
     @Column(name = "password", nullable = false, length = 25)
+
     private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Sign> signSet;

@@ -60,7 +60,8 @@ public class PlaceBean {
     }
 
     public void placeListener(ActionEvent ae) {
-        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("placeID").toString();
+        String ids = FacesContext.getCurrentInstance().getExternalContext()
+                .getRequestParameterMap().get("placeID").toString();
         int id = Integer.parseInt(ids);
         this.place.setId(id);
     }
@@ -84,6 +85,7 @@ public class PlaceBean {
      }
 
     public void addInformation(String s) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
 }

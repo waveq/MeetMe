@@ -57,17 +57,18 @@ public class UserBean {
     }
 
     public void userListener(ActionEvent ae) {
-        String ids = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("userID").toString();
+        String ids = FacesContext.getCurrentInstance().getExternalContext()
+                .getRequestParameterMap().get("userID").toString();
         int id = Integer.parseInt(ids);
         this.user.setId(id);
     }
 
     public void addInformation(String s) {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
+        FacesContext.getCurrentInstance()
+                .addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, s, ""));
     }
 
     public String doLogin() {
-
         EntityManager em = DBManager.getManager().createEntityManager();
         List<User> users = em.createQuery("from User u").getResultList();
 
@@ -75,7 +76,8 @@ public class UserBean {
         user.setLogin(user.getLogin().toLowerCase().replaceAll("\\s", ""));
 
         for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getLogin().equals(user.getLogin()) && users.get(i).getPassword().equals(user.getPassword())) {
+            if (users.get(i).getLogin().equals(user.getLogin()) 
+                    && users.get(i).getPassword().equals(user.getPassword())) {
 
                 this.user.setId(users.get(i).getId());
                 this.user = em.find(User.class, user.getId());
@@ -106,7 +108,7 @@ public class UserBean {
 
     public String doLogout() {
         loggedIn = false;
-
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "logout-success";
     }
 

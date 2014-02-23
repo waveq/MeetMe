@@ -30,7 +30,8 @@
                 </h:outputLabel>
             </p:panelGrid>
 
-        <p:panel header="Na wydarzenie przyjdą:" toggleable="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel5" >    
+        <p:panel header="Na wydarzenie przyjdą:" toggleable="true" 
+                 toggleSpeed="500" closeSpeed="500" widgetVar="panel5" >    
         <h:form>
             <p:growl id="growl" showDetail="true" sticky="true" />  
             <h:dataTable value="#{signBean.list}" var="sign">
@@ -44,13 +45,17 @@
                 </h:column>
                 <h:column>
                     <h:panelGroup id="isAdmin" rendered="#{userBean.admin}">
-                        <p:commandLink value="Usuń" action="#{signBean.delete}" actionListener="#{signBean.signListener}" update="@form" >
+                        <p:commandLink value="Usuń" action="#{signBean.delete}" 
+                                       actionListener="#{signBean.signListener}" 
+                                       update="@form" >
                             <f:param name="signID" value="#{sign.id}" />
                         </p:commandLink>
                     </h:panelGroup>
                 </h:column>
             </h:dataTable>
-            <p:commandButton value="#{signBean.signed==false? 'Zapisz się':'Wypisz się'}" action="#{signBean.signIn}" update="@form" />
+            <p:commandButton 
+                value="#{signBean.signed==false? 'Zapisz się':'Wypisz się'}" 
+                action="#{signBean.signIn}" update="@form" />
         </h:form>
         </p:panel>
 

@@ -19,17 +19,22 @@
                     <h:outputText value="#{place.address}"/>
                 </p:column>
                 <p:column rendered="#{userBean.admin}">
-                    <p:commandLink value="Edytuj" action="#{placeBean.loadToUpdate}" actionListener="#{placeBean.placeListener}" update="@form" >
+                    <p:commandLink value="Edytuj" action="#{placeBean.loadToUpdate}" 
+                                   actionListener="#{placeBean.placeListener}" 
+                                   update="@form" >
                         <f:param name="placeID" value="#{place.id}" />
                     </p:commandLink> 
                 </p:column>
                 <p:column rendered="#{userBean.admin}">
-                    <p:commandLink value="Usuń" action="#{placeBean.delete}" actionListener="#{placeBean.placeListener}" update="@form">
+                    <p:commandLink value="Usuń" action="#{placeBean.delete}" 
+                                   actionListener="#{placeBean.placeListener}" 
+                                   update="@form">
                         <f:param name="placeID" value="#{place.id}" />
                     </p:commandLink>
                 </p:column>
             </p:dataTable>
         </h:form>
-        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+        <p:messages id="messages" showDetail="true" autoUpdate="true" 
+                    closable="true" /> 
     </ui:define>
 </ui:composition>

@@ -13,15 +13,18 @@
         <h:form>
             <p:dataTable value="#{eventBean.list}" var="event">
                 <p:column headerText="Nazwa">
-                    <p:commandLink value="#{event.name}" action="#{eventBean.loadSigns}" actionListener="#{eventBean.eventListener}" >
+                    <p:commandLink value="#{event.name}" 
+                                   action="#{eventBean.loadSigns}" actionListener="#{eventBean.eventListener}" >
                         <f:param name="eventID" value="#{event.id}" />
                     </p:commandLink>
                 </p:column>
                 <p:column headerText="Miejsce" >
-                    <p:outputLabel value="#{event.place == null? 'Nie sprecyzowano':event.place.name}"/>
+                    <p:outputLabel value="#{event.place == null? 
+                                            'Nie sprecyzowano':event.place.name}"/>
                 </p:column>
                 <p:column headerText="Adres">
-                    <p:outputLabel value="#{event.place == null? 'Nie sprecyzowano':event.place.address}"/>
+                    <p:outputLabel value="#{event.place == null? 
+                                            'Nie sprecyzowano':event.place.address}"/>
                 </p:column>
 
                 <p:column headerText="Czas rozpoczęcia">
@@ -35,17 +38,22 @@
                     </p:outputLabel>
                 </p:column>
                 <p:column rendered="#{userBean.admin}">
-                        <p:commandLink value="Edytuj" action="#{eventBean.loadToUpdate()}" actionListener="#{eventBean.eventListener}" >
+                        <p:commandLink value="Edytuj" 
+                                       action="#{eventBean.loadToUpdate()}" 
+                                       actionListener="#{eventBean.eventListener}" >
                             <f:param name="eventID" value="#{event.id}" />
                         </p:commandLink> 
                 </p:column>
                 <p:column rendered="#{userBean.admin}" >
-                        <p:commandLink value="Usuń" action="#{eventBean.delete}" actionListener="#{eventBean.eventListener}" update="@form" >
+                        <p:commandLink value="Usuń" action="#{eventBean.delete}" 
+                                       actionListener="#{eventBean.eventListener}" 
+                                       update="@form" >
                             <f:param name="eventID" value="#{event.id}" />
                         </p:commandLink>
                 </p:column>
             </p:dataTable>
-            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+            <p:messages id="messages" showDetail="true" autoUpdate="true" 
+                        closable="true" /> 
         </h:form>
 
     </ui:define>

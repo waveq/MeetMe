@@ -11,12 +11,15 @@
         <h:form>
             <h:panelGrid columns="2">
                 <p:outputLabel value="Nazwa" />
-                <p:inputText id="name" value="#{placeBean.place.name}" required="true"/>
+                <p:inputText id="name" value="#{placeBean.place.name}" required="true" >
+                      <f:validator id="validator"  validatorId="placeValidator" />
+                </p:inputText>
                 <p:outputLabel value="Adres" />
                 <p:inputText id="adres" value="#{placeBean.place.address}" required="true" />
             </h:panelGrid>
             <p:commandButton action="#{placeBean.update}" value="Edytuj" ajax="false"/>
         </h:form>
+            <p:messages id="messages" showDetail="false" autoUpdate="true" closable="true" /> 
     </ui:define>
 
 </ui:composition>

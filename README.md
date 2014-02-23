@@ -5,4 +5,4 @@ Application that allows you to create events on website using MySQL, so your fri
 in under your event and come for the party. [JSF]
 
 
-MySQL database.txt - there are declaration of tables which has been used in the project.
+MySQL database.sql - Declaration of database 

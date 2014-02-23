@@ -15,24 +15,30 @@
 
             <h:panelGrid columns="2" id="create-acc">   
                 <h:outputLabel value="Imię:" />
-                <p:inputText id="name" value="#{userBean.user.name}" required="true" />
+                <p:inputText id="name" value="#{userBean.user.name}" 
+                             required="true" />
 
                 <h:outputLabel value="Nazwisko:" />
-                <p:inputText id="lastName" value="#{userBean.user.lastName}" required="true" />
+                <p:inputText id="lastName" value="#{userBean.user.lastName}" 
+                             required="true" />
 
                 <h:outputLabel value="Login:" />
-                <p:inputText id="login"  value="#{userBean.user.login}" required="true">
+                <p:inputText id="login"  value="#{userBean.user.login}" 
+                             required="true">
                     <f:validateLength minimum="4" maximum="20" />
                     <f:validator id="validator" validatorId="loginValidator" />
                 </p:inputText>
 
                 <h:outputLabel for="pwd1" value="Hasło:" />  
-                <p:password id="pwd1" value="#{userBean.user.password}" match="pwd2" label="Password 1" required="true"/>  
+                <p:password id="pwd1" value="#{userBean.user.password}" 
+                            match="pwd2" label="Password 1" required="true"/>  
 
                 <h:outputLabel for="pwd2" value="Powtórz hasło:" />  
-                <p:password id="pwd2" value="#{userBean.user.password}" label="Password 2" required="true"/>  
+                <p:password id="pwd2" value="#{userBean.user.password}" 
+                            label="Password 2" required="true"/>  
             </h:panelGrid>  
-            <p:commandButton id="addButton" update="create-acc" value="Dodaj" ajax="false" action="#{userBean.create}" />  
+            <p:commandButton id="addButton" update="create-acc" value="Dodaj" 
+                             ajax="false" action="#{userBean.create}" />  
         </h:form>
         <p:messages id="messages" showDetail="true" autoUpdate="true"/>  
 

@@ -16,15 +16,20 @@
                     <h:form id="login-form">
                         <h:panelGrid columns="2" id="login" >
                             <h:outputLabel value="Login:"/>
-                            <p:inputText value="#{userBean.user.login}" id="username"/>
+                            <p:inputText value="#{userBean.user.login}" 
+                                         id="username"/>
                             <h:outputLabel value="Hasło:"/>
-                            <p:password value="#{userBean.user.password}" id="password"/>
+                            <p:password value="#{userBean.user.password}" 
+                                        id="password"/>
                         </h:panelGrid>
-                        <p:commandButton id="button" value="Login" action="#{userBean.doLogin}" update=":content-panel,#{leftMenuu}" />
+                        <p:commandButton id="button" value="Login" 
+                                         action="#{userBean.doLogin}" 
+                                         update=":content-panel,#{leftMenuu}" />
                     </h:form>
                     
                     <h:form id="create-acc">
-                        <p:commandLink action="#{navigationBean.redirectToCreateAcc}" value="Stwórz konto"/>
+                        <p:commandLink action="#{navigationBean.redirectToCreateAcc}" 
+                                       value="Stwórz konto"/>
                     </h:form>
                 </h:panelGroup>
 
@@ -37,7 +42,8 @@
                         <h:outputLabel value="#{userBean.user.lastName}" />
                     </h:panelGrid>
                 </h:panelGroup>
-                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" /> 
+                <p:messages id="messages" showDetail="true" autoUpdate="true" 
+                            closable="true" /> 
         </h:panelGroup>
     </ui:define>
 </ui:composition>
