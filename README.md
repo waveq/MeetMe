@@ -6,3 +6,7 @@ in under your event and come for the party. [JSF]
 
 
 MySQL database.sql - Declaration of database 
+
+
+
+![alt tag](https://raw.github.com/waveq/MeetMe/master/Screenshots/Screenshot3.jpg)
